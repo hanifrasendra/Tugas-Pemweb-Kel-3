@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - My Website Project</title>
+</head>
+<body>
+    <header>
+        <h1>Tentang Kami</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="about.html">Tentang</a></li>
+                <li><a href="portfolio.html">Portofolio</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Profil Singkat</h2>
+            <p>Website ini bertujuan untuk membantu serta memandu para mahasiswa dalam mencari dan mendapatkan beasiswa.</p>
+            <img src="assets/images/team.jpg" alt="Foto Tim">
+        </section>
+
+        <section>
+            <h2>Visi dan Misi</h2>
+            <p>Visi kami Menjadi jembatan utama yang mendemokrasikan akses pendidikan tinggi bagi seluruh anak bangsa tanpa terkendala batasan informasi dan finansial.:</p>
+            <ul>
+                <li>Menyediakan informasi beasiswa yang akurat, transparan, dan inklusif dari berbagai sumber terpercaya.</li>
+                <li>Menyederhanakan alur pencarian beasiswa agar mudah diakses oleh masyarakat di daerah pelosok sekalipun.</li>
+                <li>Membangun kesadaran kolektif akan pentingnya pendidikan berkelanjutan sebagai kunci perubahan sosial.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Karsa Akademika </p>
+    </footer>
+</body>
+</html>
