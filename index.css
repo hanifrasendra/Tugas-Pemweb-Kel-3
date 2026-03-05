@@ -1,0 +1,4 @@
+.navigator>ul{
+    display: flex;
+    gap:20px;
+}

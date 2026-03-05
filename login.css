@@ -1,0 +1,80 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    height: 100vh;
+}
+
+.login-container{
+    width: 400px;
+    height: 600px;
+    margin: auto;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    padding: 30px;
+    
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+img{
+    width: 120px;
+    height: 120px;
+    margin: auto;
+}
+
+.email-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.email-form>input{
+    height: 30px;
+    border: none;
+    padding: 0 10px;
+}
+
+.password-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.password-form>input{
+    height: 30px;
+    border: none;
+    padding: 0 10px;
+}
+
+.btn-layout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-btn {
+    background-color: #6367FF;
+    border: none;
+    border-radius: 15px;    
+    height: 50px;
+    width: 120px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.sign-up-btn {
+    background-color: transparent;
+    border: none;
+    color: #6367FF;
+    font-size: 16px;
+}
