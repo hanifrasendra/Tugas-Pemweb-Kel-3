@@ -44,7 +44,7 @@ const members = [
   },
 ];
 
-// ─── SUB-COMPONENTS ──────────────────────────────────────
+// ─── SUB-COMPONENTS ───
 const InfoRow = ({ label, value }) => (
   <div className="flex flex-col gap-0.5">
     <span className="text-[0.6rem] font-bold tracking-widest uppercase text-[#A2A3BB]">{label}</span>
@@ -61,7 +61,7 @@ const SocialButton = ({ icon, label }) => (
   </button>
 );
 
-// ─── PROFILE CARD ────────────────────────────────────────
+// ─── PROFILE CARD ───
 const ProfileCard = ({ member, index }) => (
   <div
     className="w-full rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 bg-[#FBF9FF] border border-[#B3B7EE] shadow-[0_4px_24px_rgba(147,149,211,0.10)]"
@@ -153,7 +153,7 @@ const ProfileCard = ({ member, index }) => (
   </div>
 );
 
-// ─── PROFILE PAGE ────────────────────────────────────────
+// ─── PROFILE PAGE ───
 const ProfilePage = () => (
   <div className="min-h-screen overflow-x-hidden bg-[#FBF9FF] font-sans">
     <div className="fixed pointer-events-none top-[-25vh] right-[-15vw] w-[65vw] h-[65vw] max-w-[800px] rounded-full bg-[radial-gradient(circle,rgba(179,183,238,0.22)_0%,transparent_65%)] z-0" />
