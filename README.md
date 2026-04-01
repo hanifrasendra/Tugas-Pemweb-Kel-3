@@ -27,9 +27,12 @@ npm install
 
 Untuk menjalankan project dalam mode development:
 
-klik terminal di atas kiri 
+klik terminal di atas kiri
+
 type -> cd web-kel-3
+
 enter
+
 type -> npm run dev
 ---
 
