@@ -27,12 +27,10 @@ npm install
 
 Untuk menjalankan project dalam mode development:
 
-npm run dev
-
-Setelah itu, buka browser dan akses:
-
-http://localhost:5173
-
+klik terminal di atas kiri 
+type -> cd web-kel-3
+enter
+type -> npm run dev
 ---
 
 ## 🏗️ 4. Build untuk Production
