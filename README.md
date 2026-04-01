@@ -23,7 +23,7 @@ npm install
 
 ---
 
-## ▶️ 3. Menjalankan Project
+## ▶️ 3. Menjalankan Project --> Utama
 
 Untuk menjalankan project dalam mode development:
 
