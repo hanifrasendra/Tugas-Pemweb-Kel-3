@@ -1,6 +1,26 @@
-
+import {useState, useEffect} from 'react';
 
 const LoginPage = () => {
+    const [isVisible, setIsVisible] = useState(0);
+
+   
+    
+    const handleSubmit = () => {
+
+
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("password").value;
+
+        const dataLogin = {
+            email: email,
+            password: pass
+        }
+
+        console.log(dataLogin.email);
+    }
+
+    
+
     return(
         <div className={`h-[100vh]`}>
             <div className={`flex h-full`}>
@@ -18,7 +38,7 @@ const LoginPage = () => {
                                 <input 
                                 type="email" 
                                 id="email"
-                                className={`border font-plex block w-[526px] h-[45px]`}
+                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
                                 />
                             </div>
                             <div className={`mt-[17px]`}>
@@ -26,10 +46,15 @@ const LoginPage = () => {
                                 <input 
                                 type="password" 
                                 id="password"
-                                className={`border font-plex block w-[526px] h-[45px]`}
+                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
                                 />
                             </div>
-                            <button className={`bg-[rgba(255,49,46,1)] text-[24px] text-white font-semibold font-plex w-[526px] h-[58px] rounded-[10px] mx-auto mt-[30px]`}>Sign Up</button>
+                            <button 
+                            type="button"
+                            onClick={handleSubmit}
+                            className={`bg-[rgba(255,49,46,1)] text-[24px] text-white font-semibold font-plex w-[526px] h-[58px] rounded-[10px] mx-auto mt-[30px] cursor-pointer
+                                    group hover:bg-[rgba(255,255,250,1)] hover:text-[rgba(255,49,46,1)] hover:border-[rgba(255,49,46,1)] hover:border-[2px]
+                                `}>Sign Up</button>
                             <div className={`flex my-[40px]`}>
                                 <div className={`flex flex-1 items-center`}>
                                     <div className={`bg-[rgba(81,80,82,1)] w-full h-[1px]`}></div>
@@ -40,8 +65,8 @@ const LoginPage = () => {
                                 </div>
                             </div>
                             <div className={`w-full`}>
-                                <button className={`bg-[rgba(255,255,255,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(81,80,82,1)] font-plex w-[526px] h-[48px]`}>Sign up with Google</button>
-                                <button className={`bg-[rgba(51,49,56,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(255,255,250,1)] font-plex w-[526px] h-[48px] mt-[38px]`}>Sign up with Google</button>
+                                <button className={`bg-[rgba(255,255,255,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(81,80,82,1)] font-plex w-[526px] h-[48px] rounded-[10px]  cursor-pointer`}>Sign up with Google</button>
+                                <button className={`bg-[rgba(51,49,56,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(255,255,250,1)] font-plex w-[526px] h-[48px] rounded-[10px] mt-[38px] cursor-pointer`}>Sign up with Google</button>
                             </div>
                         </form>
                         

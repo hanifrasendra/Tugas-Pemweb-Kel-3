@@ -86,7 +86,9 @@ const KRITERIA = [
 // ── Hero ─────────────────────────────────────────────────
 const Hero = () => {
   return(
-    <div className={`bg-[rgba(255,255,255,1)] h-[999px]`}>
+    <div 
+    id="beranda"
+    className={`bg-[rgba(255,255,255,1)] h-[999px]`}>
       <div className={`absolute z-0 w-full h-[999px] overflow-hidden`}>
         <div className={`absolute right-[0px] bottom-[0px] bg-[rgba(255,49,46,1)] w-[545.62px] h-[760.81px] rotate-[55.63deg] rounded-[50%] blur-[180px]`}></div>
       </div>
@@ -125,7 +127,9 @@ const IdentitasPortal = () => {
 
   ]
   return(
-    <div className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px]`}>
+    <div 
+    id="profil"
+    className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px]`}>
       <div className={`bg-[rgba(0,1,3,1)] w-[1030px] h-full rounded-[30px] pl-[100px]`}>
         <h1 className={`text-[rgba(255,255,255,1)] text-[40px] font-plex mt-[118px]`}>Platform Independen yang Berpihak pada Mahasiswa</h1>
         <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex w-[816px] mt-[157px]`}>Portal Beasiswa adalah portal beasiswa independen yang dibangun dengan satu tujuan: menghapus kesenjangan informasi antara mahasiswa dan peluang beasiswa yang tersedia. </p>
@@ -184,7 +188,9 @@ const LayananBeasiswa = () => {
     },
   ]
   return(
-    <div className={`h-[1080px] bg-[rgba(255,255,250),1]`}>
+    <div 
+    id="jenis"
+    className={`h-[1080px] bg-[rgba(255,255,250),1]`}>
       <div className={`relative overflow-hidden`}>
         <div className={`relative top-[-170px] mx-auto bg-[linear-gradient(90deg,rgba(81,80,82,1)0%,rgba(182,180,184,0.5)16%,rgba(255,255,255,0)30%,rgba(255,255,255,0)74%,rgba(182,180,184,0.5)87%,rgba(81,80,82,1)100%)] rounded-[50%] w-[1896px] h-[281px]`}></div>  
       </div>
@@ -228,7 +234,9 @@ const listItems = [
 
 const PengajuanBeasiswa = () => {
   return (
-    <div className="relative min-h-screen bg-[#FCEAE8] overflow-hidden flex items-center">
+    <div 
+    id=""
+    className="relative min-h-screen bg-[#FCEAE8] overflow-hidden flex items-center">
       <div className="relative z-10 mx-[100px] pt-[80px] pb-[162px] w-full">
         <h1 className="font-['IBM_Plex_Mono'] text-[48px] font-bold text-[rgba(0,0,0,1)] mt-[80px]">
           Ayo ikut! ajukan dirimu untuk<br />
