@@ -38,7 +38,7 @@ const EditPage = () => {
             const konfirmasi = confirm("Apakah Anda yakin ingin mengganti data proposal ini?");
             if(!konfirmasi) return;
 
-            const response = await fetch("http://localhost/web-kel-3/backend/edit.php", {
+            const response = await fetch("https://web-kel-3-backend.vercel.app/api/edit.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

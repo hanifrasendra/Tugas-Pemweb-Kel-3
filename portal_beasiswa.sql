@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 13, 2026 at 01:52 PM
+-- Generation Time: Apr 13, 2026 at 07:17 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `pengajuan` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) DEFAULT NULL,
   `deskripsi` text,
   `universitas` varchar(100) DEFAULT NULL,
@@ -36,7 +36,8 @@ CREATE TABLE `pengajuan` (
   `semester` int DEFAULT NULL,
   `ukt` int DEFAULT NULL,
   `ipk` double(3,2) DEFAULT NULL,
-  `tipe_beasiswa` enum('Prestasi','Reguler','Leadership') DEFAULT NULL
+  `tipe_beasiswa` enum('Prestasi','Reguler','Leadership') DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -53,12 +54,13 @@ INSERT INTO `pengajuan` (`id`, `nama`, `deskripsi`, `universitas`, `prodi`, `sem
 --
 
 CREATE TABLE `register_user` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 --
 -- Dumping data for table `register_user`
 --
@@ -73,32 +75,6 @@ INSERT INTO `register_user` (`id`, `nama`, `email`, `password`) VALUES
 --
 -- Indexes for table `pengajuan`
 --
-ALTER TABLE `pengajuan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `register_user`
---
-ALTER TABLE `register_user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `pengajuan`
---
-ALTER TABLE `pengajuan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `register_user`
---
-ALTER TABLE `register_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

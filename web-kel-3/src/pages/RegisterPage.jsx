@@ -13,7 +13,7 @@ const RegisterPage = () => {
             return;
         }
 
-        const getUser = await fetch("http://localhost/web-kel-3/backend/getUsers.php")
+        const getUser = await fetch("https://web-kel-3-backend.vercel.app/api/register.php")
 
         const user = await getUser.json();
         //Cek apakah email yang dimasukkan sudah terdaftar atau belum

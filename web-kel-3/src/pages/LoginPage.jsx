@@ -19,7 +19,7 @@ const LoginPage = () => {
         try {
             console.log(dataLogin);
             // path menuju file register.php di laragon
-            const response = await fetch("http://localhost/web-kel-3/backend/login.php", {
+            const response = await fetch("https://web-kel-3-backend.vercel.app/api/login.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
