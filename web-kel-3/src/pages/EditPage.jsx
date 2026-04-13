@@ -96,57 +96,117 @@ const EditPage = () => {
     }
 
     return(
-        <div className={`mx-[100px]`}>
-            <h1 className={`text-[32px] mt-[132px] font-plex font-bold`}>Ajukan Proposal Beasiswa</h1>
-            <div className={`mt-[52px]`}>
-                <form action="" className={`flex flex-col gap-[62px] pt-[74px] mb-[247px] pl-[53px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]`}>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Nama Lengkap</label>
-                        <input id="nama" type="text" defaultValue={dataProposal.data.nama} placeholder="Nama Lengkap" className={`block border w-[639px] h-[69px] mt-[18px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Deskripsi</label>
-                        <textarea id="deskripsi" type="text" defaultValue={dataProposal.data.deskripsi} placeholder="Deskripsi Proposal Ajuan Mu" className={`block border rounded-[10px] w-[1144px] h-[202px] mt-[18px] py-[10px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Universitas</label>
-                        <input id="universitas" type="text" defaultValue={dataProposal.data.universitas} placeholder="Universitas" className={`border-[0px_0px_0px_1px] block w-[639px] h-[69px] mt-[18px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Prodi</label>
-                        <input id="prodi" type="text" defaultValue={dataProposal.data.prodi} placeholder="Prodi" className={`border-[0px_0px_0px_1px] block w-[639px] h-[69px] mt-[18px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Semester</label>
-                        <input id="semester" type="text" defaultValue={dataProposal.data.semester} placeholder="Semester" className={`border-[0px_0px_0px_1px] block w-[639px] h-[69px] mt-[18px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>IPK</label>
-                        <input id="ipk" type="text" defaultValue={dataProposal.data.ipk} placeholder="IPK 1.00-4.00" className={`border-[0px_0px_0px_1px] block w-[639px] h-[69px] mt-[18px] px-[20px] outline-none`}/>
-                    </div>
-                    <div>
-                        <label htmlFor="" className={`text-[20px] font-plex font-semibold`}>Tipe Beasiswa</label>
-                        <select name="" id="tipe-beasiswa" defaultValue={dataProposal.data.tipe_beasiswa} placeholder="tipe" className={`block text-[20px] w-[240px] h-[44px] outline-none shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] rounded-[10px]`}>
-                            <option value="" disabled hidden className={`text-gray-400 px-[10px]`}>Pilih Tipe Beasiswa</option>
-                            <option value="Reguler">Reguler</option>
-                            <option value="Prestasi">Prestasi</option>
-                            <option value="Leadership">Leadership</option>
-                        </select>
-                    </div>
-                    <div className={`flex gap-[115px] mt-[93px] mb-[150px] ml-[92px]`}>
-                        <button 
+        <div className={`mx-[20px] md:mx-[50px] lg:mx-[100px]`}>
+            <h1 className={`text-[24px] md:text-[28px] lg:text-[32px] mt-[100px] md:mt-[120px] lg:mt-[132px] font-plex font-bold`}>
+                Ajukan Proposal Beasiswa
+            </h1>
+
+        <div className={`mt-[40px] md:mt-[52px]`}>
+            <form className={`flex flex-col gap-[40px] md:gap-[50px] lg:gap-[62px] pt-[40px] md:pt-[60px] lg:pt-[74px] mb-[150px] md:mb-[200px] lg:mb-[247px] px-[20px] md:pl-[40px] lg:pl-[53px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]`}>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Nama Lengkap
+                    </label>
+                    <input id="nama" type="text"
+                        defaultValue={dataProposal.data.nama}
+                        placeholder="Nama Lengkap"
+                        className={`block border w-full md:w-[500px] lg:w-[639px] h-[55px] md:h-[60px] lg:h-[69px] mt-[12px] md:mt-[18px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Deskripsi
+                    </label>
+                    <textarea id="deskripsi"
+                        defaultValue={dataProposal.data.deskripsi}
+                        placeholder="Deskripsi Proposal Ajuan Mu"
+                        className={`block border rounded-[10px] w-full lg:w-[1144px] h-[160px] md:h-[180px] lg:h-[202px] mt-[12px] md:mt-[18px] py-[10px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Universitas
+                    </label>
+                    <input id="universitas" type="text"
+                        defaultValue={dataProposal.data.universitas}
+                        placeholder="Universitas"
+                        className={`block border w-full md:w-[500px] lg:w-[639px] h-[55px] md:h-[60px] lg:h-[69px] mt-[12px] md:mt-[18px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Prodi
+                    </label>
+                    <input id="prodi" type="text"
+                        defaultValue={dataProposal.data.prodi}
+                        placeholder="Prodi"
+                        className={`block border w-full md:w-[500px] lg:w-[639px] h-[55px] md:h-[60px] lg:h-[69px] mt-[12px] md:mt-[18px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Semester
+                    </label>
+                    <input id="semester" type="text"
+                        defaultValue={dataProposal.data.semester}
+                        placeholder="Semester"
+                        className={`block border w-full md:w-[500px] lg:w-[639px] h-[55px] md:h-[60px] lg:h-[69px] mt-[12px] md:mt-[18px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        IPK
+                    </label>
+                    <input id="ipk" type="text"
+                        defaultValue={dataProposal.data.ipk}
+                        placeholder="IPK 1.00-4.00"
+                        className={`block border w-full md:w-[500px] lg:w-[639px] h-[55px] md:h-[60px] lg:h-[69px] mt-[12px] md:mt-[18px] px-[15px] md:px-[20px] outline-none`}
+                    />
+                </div>
+
+                <div>
+                    <label className={`text-[16px] md:text-[18px] lg:text-[20px] font-plex font-semibold`}>
+                        Tipe Beasiswa
+                    </label>
+                    <select id="tipe-beasiswa"
+                        defaultValue={dataProposal.data.tipe_beasiswa}
+                        className={`block text-[16px] md:text-[18px] lg:text-[20px] w-full md:w-[200px] lg:w-[240px] h-[40px] md:h-[42px] lg:h-[44px] mt-[10px] outline-none shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] rounded-[10px]`}
+                    >
+                        <option value="" disabled hidden>Pilih Tipe Beasiswa</option>
+                        <option value="Reguler">Reguler</option>
+                        <option value="Prestasi">Prestasi</option>
+                        <option value="Leadership">Leadership</option>
+                    </select>
+                </div>
+
+                <div className={`flex flex-col md:flex-row gap-[20px] md:gap-[60px] lg:gap-[115px] mt-[60px] md:mt-[80px] lg:mt-[93px] mb-[100px] md:mb-[130px] lg:mb-[150px] md:ml-[40px] lg:ml-[92px]`}>
+                    
+                    <button 
                         type="button"
                         onClick={handleEdit}
-                        className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[32px] font-plex font-semibold w-[372px] h-[73px] cursor-pointer`}>Edit</button>
-                        <button
+                        className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-white text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
+                    >
+                        Edit
+                    </button>
+
+                    <button
                         type="button"
                         onClick={handleCancel}
-                        className={`flex justify-center items-center bg-[rgba(81,80,82,1)] text-[rgba(255,255,250,1)] text-[32px] font-plex font-semibold w-[372px] h-[73px] cursor-pointer`}>Batal</button>
-                    </div>
-                </form>
-                
-            </div>
+                        className={`flex justify-center items-center bg-[rgba(81,80,82,1)] text-white text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
+                    >
+                        Batal
+                    </button>
+
+                </div>
+            </form>
         </div>
+    </div>
     )
 }
 

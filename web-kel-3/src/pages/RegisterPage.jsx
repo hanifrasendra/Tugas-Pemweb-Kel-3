@@ -1,5 +1,3 @@
-
-
 const RegisterPage = () => {
 
     const handleSubmit = async () => {
@@ -14,42 +12,28 @@ const RegisterPage = () => {
         }
 
         const getUser = await fetch("https://web-kel-3-backend.vercel.app/api/getUsers.php")
-
         const user = await getUser.json();
-        //Cek apakah email yang dimasukkan sudah terdaftar atau belum
+
         const existingUser = user.data.find(u => u.email === email);
         
-        // Cek apakah ada email dengan nama yang sudah terdaftar
         if(existingUser) {
             alert("Email sudah terdaftar. Silakan gunakan email lain.");
         } else {
-            //eksekusi jika tidak ada email dengan nama yang sama di temukan
-
-            // Cek apakah password dan confirm password cocok
             if(pass !== confirmPassword) {
-                alert("Password dan Confirm Password tidak cocok. Silakan periksa kembali.");
+                alert("Password tidak cocok.");
                 return;
             }
             
-            const dataLogin = {
-                nama: nama,
-                email: email,
-                password: pass
-            }
-            // Kirim data ke backend menggunakan fetch ke laragon dengan method POST
+            const dataLogin = { nama, email, password: pass };
+
             try {
-                console.log(dataLogin);
-                // path menuju file register.php di laragon
                 const response = await fetch("https://web-kel-3-backend.vercel.app/api/register.php", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataLogin)
                 });
             
                 const data = await response.json();
-                console.log(data)
 
                 if (data.status === "success") {
                     alert("registrasi berhasil!");
@@ -59,86 +43,119 @@ const RegisterPage = () => {
                 }
 
             } catch (error) {
-                console.log(error)
-                alert("Terjadi kesalahan saat mengirim data. Silakan coba lagi."); 
+                alert("Terjadi kesalahan.");
             }
         }
-
-        
-
-        
     }
 
     return(
-        <div className={`h-full`}>
-            <div className={`flex h-full`}>
-                <div className={`w-[973px] bg-[rgba(51,49,56,1)] rounded-[0px_30px_30px_0px] pl-[100px]`}>
-                    <h1 className={`text-[64px] font-plex text-[rgba(255,255,250,1)] font-semibold w-[723px] mt-[227px]`}>
-                        <span className={`text-[rgba(255,49,46,1)]`}>Create</span> Your Account
+        <div className="h-full">
+            <div className={`
+                flex h-full 
+                flex-col 
+                [@media(min-width:1024px)]:flex-row
+            `}>
+                
+                {/* LEFT */}
+                <div className={`
+                    w-full 
+                    [@media(min-width:1024px)]:w-[50%]
+                    bg-[rgba(51,49,56,1)] 
+                    rounded-none 
+                    [@media(min-width:1024px)]:rounded-[0px_30px_30px_0px]
+                    px-[30px] 
+                    [@media(min-width:1024px)]:pl-[100px]
+                    py-[60px]
+                `}>
+                    <h1 className={`
+                        font-plex text-white font-semibold 
+                        text-[32px] 
+                        [@media(min-width:768px)]:text-[48px]
+                        [@media(min-width:1024px)]:text-[64px]
+                        mt-[50px]
+                        [@media(min-width:1024px)]:mt-[227px]
+                    `}>
+                        <span className="text-[rgba(255,49,46,1)]">Create</span> Your Account
                     </h1>
                 </div>
-                <div className={`flex justify-center items-center flex-1 h-auto`}>
-                    <div className={``}>
-                        <form action="" className={`flex flex-col justify-center items-center w-[526px] mb-[200px]`}>
-                            <h1 className={`text-[64px] text-center font-semibold font-plex mt-[120px]`}>Sign Up</h1>
-                            <div className={`mt-[70px]`}>
-                                <label htmlFor="nama" className={`inline-block font-plex`}>Nama Lengkap</label>
-                                <input 
-                                type="text" 
-                                id="nama"
-                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
-                                />
-                            </div>
-                            <div className={`mt-[17px]`}>
-                                <label htmlFor="email" className={`inline-block font-plex`}>Email</label>
-                                <input 
-                                type="email" 
-                                id="email"
-                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
-                                />
-                            </div>
-                            <div className={`mt-[17px]`}>
-                                <label htmlFor="password" className={`inline-block font-plex`}>Password</label>
-                                <input 
-                                type="password" 
-                                id="password"
-                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
-                                />
-                            </div>
-                            <div className={`mt-[17px]`}>
-                                <label htmlFor="confirmPassword" className={`inline-block font-plex`}>Confirm Password</label>
-                                <input 
-                                type="password" 
-                                id="confirmPassword"
-                                className={`border font-plex block w-[526px] h-[45px] px-[20px]`}
-                                />
-                            </div>
-                            <button 
+
+                {/* RIGHT */}
+                <div className="flex justify-center items-center flex-1 px-[20px]">
+                    <form className={`
+                        flex flex-col items-center 
+                        w-full 
+                        max-w-[526px]
+                        mb-[100px]
+                    `}>
+                        <h1 className={`
+                            text-center font-semibold font-plex 
+                            text-[36px]
+                            [@media(min-width:768px)]:text-[48px]
+                            [@media(min-width:1024px)]:text-[64px]
+                            mt-[60px]
+                        `}>
+                            Sign Up
+                        </h1>
+
+                        {/* INPUT */}
+                        <div className="mt-[40px] w-full">
+                            <label className="font-plex">Nama Lengkap</label>
+                            <input type="text" id="nama"
+                                className="border w-full h-[45px] px-[20px]" />
+                        </div>
+
+                        <div className="mt-[17px] w-full">
+                            <label className="font-plex">Email</label>
+                            <input type="email" id="email"
+                                className="border w-full h-[45px] px-[20px]" />
+                        </div>
+
+                        <div className="mt-[17px] w-full">
+                            <label className="font-plex">Password</label>
+                            <input type="password" id="password"
+                                className="border w-full h-[45px] px-[20px]" />
+                        </div>
+
+                        <div className="mt-[17px] w-full">
+                            <label className="font-plex">Confirm Password</label>
+                            <input type="password" id="confirmPassword"
+                                className="border w-full h-[45px] px-[20px]" />
+                        </div>
+
+                        {/* BUTTON */}
+                        <button 
                             type="button"
                             onClick={handleSubmit}
-                            className={`bg-[rgba(255,49,46,1)] text-[24px] text-white font-semibold font-plex w-[526px] h-[58px] rounded-[10px] mx-auto mt-[30px] cursor-pointer
-                                    group hover:bg-[rgba(255,255,250,1)] hover:text-[rgba(255,49,46,1)] hover:border-[rgba(255,49,46,1)] hover:border-[2px]
-                                `}>Sign Up</button>
-                            <div className={`flex my-[40px]`}>
-                                <div className={`flex flex-1 items-center`}>
-                                    <div className={`bg-[rgba(81,80,82,1)] w-full h-[1px]`}></div>
-                                </div>
-                                <p className={`text-[24px] text-[rgba(81,80,82,1)] mx-[10px]`}>or</p>
-                                <div className={`flex flex-1 items-center`}>
-                                    <div className={`bg-[rgba(81,80,82,1)] w-full h-[1px]`}></div>
-                                </div>
-                            </div>
-                            <div className={`w-full`}>
-                                <button className={`bg-[rgba(255,255,255,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(81,80,82,1)] font-plex w-[526px] h-[48px] rounded-[10px]  cursor-pointer`}>Sign up with Google</button>
-                                <button className={`bg-[rgba(51,49,56,1)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] text-[rgba(255,255,250,1)] font-plex w-[526px] h-[48px] rounded-[10px] mt-[38px] cursor-pointer`}>Sign up with Google</button>
-                            </div>
-                        </form>
-                        
-                    </div>
+                            className={`
+                                bg-[rgba(255,49,46,1)] text-white font-semibold 
+                                w-full h-[58px] rounded-[10px] mt-[30px]
+                                hover:bg-white hover:text-[rgba(255,49,46,1)] 
+                                hover:border-[2px] hover:border-[rgba(255,49,46,1)]
+                            `}
+                        >
+                            Sign Up
+                        </button>
+
+                        {/* OR */}
+                        <div className="flex my-[30px] w-full items-center">
+                            <div className="flex-1 h-[1px] bg-gray-400"></div>
+                            <p className="mx-[10px] text-gray-500">or</p>
+                            <div className="flex-1 h-[1px] bg-gray-400"></div>
+                        </div>
+
+                        {/* GOOGLE */}
+                        <button className="bg-white shadow w-full h-[48px] rounded-[10px]">
+                            Sign up with Google
+                        </button>
+
+                        <button className="bg-[rgba(51,49,56,1)] text-white shadow w-full h-[48px] rounded-[10px] mt-[20px]">
+                            Sign up with Google
+                        </button>
+
+                    </form>
                 </div>
             </div>
         </div>
-        
     )
 }
 

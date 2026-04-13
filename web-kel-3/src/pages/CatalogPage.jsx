@@ -15,11 +15,7 @@ const CatalogPage = () => {
             try {
                 const getData = await fetch(`https://web-kel-3-backend.vercel.app/api/catalog.php?filter=${filter}`);
                 const data = await getData.json();
-                console.log(filter);
-                console.log(data.data);
-
-                setDataProposal(data)
-                console.log(dataProposal);
+                setDataProposal(data);
             } catch(error) {
                 console.log(error);
             }
@@ -31,80 +27,103 @@ const CatalogPage = () => {
         navigate(`/edit/${id}`);
     }
 
+    return (
+        <div className={`mx-[100px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mx-[24px]`}>
 
-
-    return(
-        <div className={`mx-[100px]`}>
-            <div className={`flex justify-between mt-[100px]`}>
-                <div className={`flex gap-[28px]`}>
-                    <div className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[20px] w-[150px] h-[50px] font-plex font-semibold`}>Semua</div>
-                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular`}>Diterima</div>
-                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular`}>Pending</div>
+            {/* Top Bar — Tab Status + Tombol Ajukan */}
+            <div className={`flex justify-between mt-[100px] [@media(0px<width<=768px)]:mt-[48px] [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:gap-[16px]`}>
+                <div className={`flex gap-[28px] [@media(0px<width<=768px)]:gap-[12px]`}>
+                    <div className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[20px] w-[150px] h-[50px] font-plex font-semibold [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Semua</div>
+                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Diterima</div>
+                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Pending</div>
                 </div>
-                <button 
-                onClick={() => navigate("/tambah")}
-                className={`bg-[rgba(51,49,56,1)] text-[rgba(255,255,250,1)] text-[20px] font-plex font-semibold w-[263px] h-[50px]`}>Ajukan Proposal</button>
+                <button
+                    onClick={() => navigate("/tambah")}
+                    className={`bg-[rgba(51,49,56,1)] text-[rgba(255,255,250,1)] text-[20px] font-plex font-semibold w-[263px] h-[50px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:h-[44px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[200px]`}>
+                    Ajukan Proposal
+                </button>
             </div>
-            <div className={`bg-[rgba(51,49,56,1)] w-[630px] h-[2px] mt-[30px]`}></div>
-            <div className={`flex mt-[30px] gap-[20px]`}>
-                <div 
-                onClick={() => setFilter("")}
-                type="button"
-                className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer`}>Semua</div>
-                <div 
-                onClick={() => setFilter("Prestasi")}
-                type="button"
-                className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer`}>Prestasi</div>
-                <div 
-                onClick={() => setFilter("Reguler")}
-                type="button"
-                className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer`}>Reguler</div>
-                <div 
-                onClick={() => setFilter("Leadership")}
-                type="button"
-                className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer`}>Leadership</div>
+
+            {/* Divider */}
+            <div className={`bg-[rgba(51,49,56,1)] w-[630px] h-[2px] mt-[30px] [@media(0px<width<=768px)]:w-full [@media(768px<width<=1024px)]:w-full`}></div>
+
+            {/* Filter Chips */}
+            <div className={`flex mt-[30px] gap-[20px] [@media(0px<width<=768px)]:gap-[10px] [@media(0px<width<=768px)]:flex-wrap`}>
+                <div
+                    onClick={() => setFilter("")}
+                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
+                    Semua
+                </div>
+                <div
+                    onClick={() => setFilter("Prestasi")}
+                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
+                    Prestasi
+                </div>
+                <div
+                    onClick={() => setFilter("Reguler")}
+                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
+                    Reguler
+                </div>
+                <div
+                    onClick={() => setFilter("Leadership")}
+                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
+                    Leadership
+                </div>
             </div>
-            <div className={`grid grid-cols-5 mt-[122px]`}>
+
+            {/* Grid Proposal Card */}
+            <div className={`grid grid-cols-5 mt-[122px] gap-[20px] [@media(1024px<width<=1440px)]:grid-cols-4 [@media(768px<width<=1024px)]:grid-cols-3 [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:grid-cols-2 [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=400px)]:grid-cols-1`}>
                 {dataProposal.data.map(proposal => (
                     <div
-                    key={proposal.id}
-                    className={`py-[20px_23px] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]`}
+                        key={proposal.id}
+                        className={`py-[20px] shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]`}
                     >
-                        <div className={`flex justify-between px-[23px]`}>
+                        {/* Badge tipe */}
+                        <div className={`flex justify-between px-[23px] [@media(0px<width<=768px)]:px-[14px]`}>
                             <div></div>
-                            <div className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] font-plex w-[120px] h-[20px] rounded-[20px]`}>
+                            <div className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] font-plex w-[120px] h-[20px] rounded-[20px] text-[12px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:text-[10px]`}>
                                 {proposal.tipe_beasiswa}
                             </div>
                         </div>
-                        <div className={`mt-[113px] px-[23px]`}>
-                            <h1 
-                            onClick={() => handleClick(proposal.id)}
-                            className={`text-[rgba(0,0,0,1)] text-[16px] font-plex font-bold cursor-pointer`}>{proposal.deskripsi}</h1>
+
+                        {/* Isi Card */}
+                        <div className={`mt-[113px] px-[23px] [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=768px)]:px-[14px] [@media(768px<width<=1024px)]:mt-[60px]`}>
+                            <h1
+                                onClick={() => handleClick(proposal.id)}
+                                className={`text-[rgba(0,0,0,1)] text-[16px] font-plex font-bold cursor-pointer [@media(0px<width<=768px)]:text-[13px]`}>
+                                {proposal.deskripsi}
+                            </h1>
                             <div className={`flex justify-between`}>
-                                <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[36px]`}>{proposal.nama}</p>
-                                <div className={`bg-[]`}>
-                                    <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[36px]`}>{proposal.ukt}</p>
-                                </div>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[36px] [@media(0px<width<=768px)]:text-[12px] [@media(0px<width<=768px)]:mt-[20px]`}>{proposal.nama}</p>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[36px] [@media(0px<width<=768px)]:text-[12px] [@media(0px<width<=768px)]:mt-[20px]`}>{proposal.ukt}</p>
                             </div>
-                            
-                            <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[10px]`}>{proposal.universitas} - {proposal.prodi}</p>
+                            <p className={`text-[rgba(141,133,133,1)] text-[14px] mt-[10px] [@media(0px<width<=768px)]:text-[11px] [@media(0px<width<=768px)]:mt-[6px]`}>
+                                {proposal.universitas} - {proposal.prodi}
+                            </p>
                         </div>
+
+                        {/* Divider merah */}
                         <div className={`bg-[rgba(255,49,46,1)] w-[88%] h-[2px] mt-[12px] mb-[8px] mx-auto`}></div>
-                        <div className={`flex mt-[8px] px-[23px] gap-[24px]`}>
+
+                        {/* Footer Card */}
+                        <div className={`flex mt-[8px] px-[23px] gap-[24px] [@media(0px<width<=768px)]:px-[14px] [@media(0px<width<=768px)]:gap-[16px]`}>
                             <div>
-                                <p className={`text-[rgba(141,133,133,1)] text-[14px]`}>Semester</p>
-                                <p className={`text-[rgba(141,133,133,1)] text-[14px]`}>{proposal.semester}</p>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] [@media(0px<width<=768px)]:text-[11px]`}>Semester</p>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] [@media(0px<width<=768px)]:text-[11px]`}>{proposal.semester}</p>
                             </div>
                             <div>
-                                <p className={`text-[rgba(141,133,133,1)] text-[14px]`}>IPK</p>
-                                <p className={`text-[rgba(141,133,133,1)] text-[14px]`}>{proposal.ipk}</p>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] [@media(0px<width<=768px)]:text-[11px]`}>IPK</p>
+                                <p className={`text-[rgba(141,133,133,1)] text-[14px] [@media(0px<width<=768px)]:text-[11px]`}>{proposal.ipk}</p>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+
+            {/* Bottom padding */}
+            <div className={`pb-[100px] [@media(0px<width<=768px)]:pb-[60px]`}></div>
         </div>
-    )
+    );
 }
 
 export default CatalogPage;
