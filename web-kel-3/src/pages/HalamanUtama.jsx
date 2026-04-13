@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 // ─── PORTAL PROFILE PAGE — Portal Beasiswa ──────────────
@@ -272,6 +273,8 @@ const PengajuanBeasiswa = () => {
 const navLinks = ["Beranda", "Tentang", "Jenis", "Kontak"];
 
 const CTAFooter = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="font-['IBM_Plex_Mono'] bg-[rgba(0,1,3,1)]">
       <section className="relative overflow-hidden mx-[100px] pt-20 pb-[72px]">
@@ -283,12 +286,13 @@ const CTAFooter = () => {
             Ratusan peluang beasiswa menunggumu. Mulai pencarian sekarang – gratis, cepat, dan tanpa ribet.
           </p>
           <div className="flex gap-5 flex-wrap animate-[fadeUp_0.6s_0.3s_ease_both]">
-            <a
+            <button
+            onClick={() => navigate("/catalog")}
               href="#"
               className="bg-[#FF312E] text-white text-[15px] font-semibold px-12 py-[18px] rounded-[4px] transition-all duration-200 hover:opacity-85 hover:-translate-y-0.5"
             >
               Mulai Cari
-            </a>
+            </button>
             <a
               href="#"
               className="bg-transparent text-white text-[15px] font-normal px-12 py-[18px] rounded-[4px] border border-white/35 transition-all duration-200 hover:border-white hover:-translate-y-0.5"

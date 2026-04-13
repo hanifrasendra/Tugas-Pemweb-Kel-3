@@ -23,7 +23,7 @@ const Navigator = () => {
                         </ul>
                         <div className={`flex gap-[44px]`}>
                             <button className={`border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex`}
-                            onClick={() => navigate("/login")}
+                            onClick={() => navigate("/register")}
                             >
                                 Register
                             </button>

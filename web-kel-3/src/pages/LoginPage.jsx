@@ -5,18 +5,47 @@ const LoginPage = () => {
 
    
     
-    const handleSubmit = () => {
-
-
+    const handleSubmit = async () => {
         const email = document.getElementById("email").value;
         const pass = document.getElementById("password").value;
-
+        
+        
+        //eksekusi jika tidak ada email dengan nama yang sama di temukan
         const dataLogin = {
             email: email,
             password: pass
         }
+        // Kirim data ke backend menggunakan fetch ke laragon dengan method POST
+        try {
+            console.log(dataLogin);
+            // path menuju file register.php di laragon
+            const response = await fetch("http://localhost/web-kel-3/backend/login.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataLogin)
+            });
+            
+            const data = await response.json();
+            console.log(data)
 
-        console.log(dataLogin.email);
+            if (data.status === "success") {
+                alert("Login berhasil!");
+                    window.location.href = "/home";
+            } else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+            console.log(error)
+            alert("Terjadi kesalahan saat mengirim data. Silakan coba lagi."); 
+        }
+        
+
+        
+
+        
     }
 
     
@@ -54,7 +83,7 @@ const LoginPage = () => {
                             onClick={handleSubmit}
                             className={`bg-[rgba(255,49,46,1)] text-[24px] text-white font-semibold font-plex w-[526px] h-[58px] rounded-[10px] mx-auto mt-[30px] cursor-pointer
                                     group hover:bg-[rgba(255,255,250,1)] hover:text-[rgba(255,49,46,1)] hover:border-[rgba(255,49,46,1)] hover:border-[2px]
-                                `}>Sign Up</button>
+                                `}>Login</button>
                             <div className={`flex my-[40px]`}>
                                 <div className={`flex flex-1 items-center`}>
                                     <div className={`bg-[rgba(81,80,82,1)] w-full h-[1px]`}></div>
