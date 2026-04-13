@@ -13,7 +13,7 @@ const RegisterPage = () => {
             return;
         }
 
-        const getUser = await fetch("https://web-kel-3-backend.vercel.app/api/register.php")
+        const getUser = await fetch("https://web-kel-3-backend.vercel.app/api/getUsers.php")
 
         const user = await getUser.json();
         //Cek apakah email yang dimasukkan sudah terdaftar atau belum
@@ -40,7 +40,7 @@ const RegisterPage = () => {
             try {
                 console.log(dataLogin);
                 // path menuju file register.php di laragon
-                const response = await fetch("https://backend-portalbeasiswa.great-site.net/register.php", {
+                const response = await fetch("https://web-kel-3-backend.vercel.app/api/register.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
