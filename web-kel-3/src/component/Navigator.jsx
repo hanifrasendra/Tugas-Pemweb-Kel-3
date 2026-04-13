@@ -13,21 +13,21 @@ const Navigator = () => {
                         onClick={() => navigate("/")}
                         className={`cursor-pointer`}
                         >
-                            <h1 className={"text-[rgba(0,1,3,1)] text-[32px] font-bold font-plex"}>Portal Beasiswa</h1>
+                            <h1 className={"text-[rgba(0,1,3,1)] text-[32px] font-bold font-plex [@media(1024px<width<=1440px)]:text-[28px]"}>Portal Beasiswa</h1>
                         </div>
                         <ul className="flex gap-[70px]">
-                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex"}><a href="#">Beranda</a></li>
-                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex"}><a href="#profil">Tentang</a></li>
-                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex"}><a href="#">Jenis</a></li>
-                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex"}><a href="#">Kontak</a></li>
+                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex [@media(1024px<width<=1440px)]:text-[18px] "}><a href="#">Beranda</a></li>
+                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex [@media(1024px<width<=1440px)]:text-[18px]"}><a href="#profil">Tentang</a></li>
+                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex [@media(1024px<width<=1440px)]:text-[18px]"}><a href="#">Jenis</a></li>
+                            <li className={"text-[rgba(0,1,3,1)] text-[20px] font-plex [@media(1024px<width<=1440px)]:text-[18px]"}><a href="#">Kontak</a></li>
                         </ul>
-                        <div className={`flex gap-[44px]`}>
-                            <button className={`border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex`}
+                        <div className={`flex gap-[44px] [@media(1024px<width<=1440px)]:gap-[33px]`}>
+                            <button className={`border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]`}
                             onClick={() => navigate("/register")}
                             >
                                 Register
                             </button>
-                            <button className={`bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex`}
+                            <button className={`bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]`}
                             onClick={() => navigate("/login")}
                             >
                                 Login

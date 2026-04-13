@@ -30,7 +30,7 @@ const TambahProposal = () => {
         try {
             console.log(dataPengajuan);
 
-            const response = await fetch("http://localhost/web-kel-3/backend/pengajuan.php", {
+            const response = await fetch("https://web-kel-3-backend.vercel.app/api/pengajuan.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -43,7 +43,7 @@ const TambahProposal = () => {
 
             if(pengajuan.status === "success") {
                 alert(pengajuan.message);
-                window.location.href = "/home";
+                window.location.href = "/catalog";
             } else {
                 alert(pengajuan.message);
             }

@@ -13,7 +13,7 @@ const CatalogPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const getData = await fetch(`http://localhost/web-kel-3/backend/catalog.php?filter=${filter}`);
+                const getData = await fetch(`https://web-kel-3-backend.vercel.app/api/catalog.php?filter=${filter}`);
                 const data = await getData.json();
                 console.log(filter);
                 console.log(data.data);

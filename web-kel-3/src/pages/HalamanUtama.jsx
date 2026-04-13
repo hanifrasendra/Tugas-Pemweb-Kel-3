@@ -130,25 +130,25 @@ const IdentitasPortal = () => {
   return(
     <div 
     id="profil"
-    className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px]`}>
-      <div className={`bg-[rgba(0,1,3,1)] w-[1030px] h-full rounded-[30px] pl-[100px]`}>
-        <h1 className={`text-[rgba(255,255,255,1)] text-[40px] font-plex mt-[118px]`}>Platform Independen yang Berpihak pada Mahasiswa</h1>
-        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex w-[816px] mt-[157px]`}>Portal Beasiswa adalah portal beasiswa independen yang dibangun dengan satu tujuan: menghapus kesenjangan informasi antara mahasiswa dan peluang beasiswa yang tersedia. </p>
-        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex w-[816px] mt-[28px]`}>Kami bukan lembaga pemberi beasiswa. Kami adalah agregator dan kurator informasi. Setiap data yang kami sajikan berasal langsung dari sumber resmi seperti Kemdikbudristek, LPDP, universitas, dan lembaga swasta terverifikasi.</p>
-        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex w-[816px] mt-[28px]`}>Layanan ini sepenuhnya <span className="text-[rgba(255,49,46,1)]">gratis</span> dan dapat diakses oleh seluruh mahasiswa Indonesia tanpa terkecuali.</p>     
+    className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px] [@media(1024px<width<=1440px)]:h-[800px]`}>
+      <div className={`bg-[rgba(0,1,3,1)] w-[55%] h-full rounded-[30px] pl-[100px] pr-[50px] [@media(1024px<width<=1440px)]:w-[976px] `}>
+        <h1 className={`text-[rgba(255,255,255,1)] text-[56px] font-plex mt-[118px] [@media(1024px<width<=1440px)]:text-[32px]`}>Platform Independen yang Berpihak pada Mahasiswa</h1>
+        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex mt-[157px] [@media(1024px<width<=1440px)]:text-[20px]`}>ScholarHub dibangun dengan satu tujuan: menghapus kesenjangan informasi antara mahasiswa dan peluang beasiswa yang tersedia.</p>
+        <div></div>
+        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex mt-[28px] [@media(1024px<width<=1440px)]:text-[20px]`}>Kami bukan lembaga pemberi beasiswa. Kami adalah agregator dan kurator informasi. Setiap data yang kami sajikan berasal langsung dari sumber resmi.</p>
       </div>
-      <div className={`flex justify-center items-center h-full w-[calc(100%-1030px)]`}>
+      <div className={`flex justify-center items-center h-full w-[45%]`}>
         <div className={`flex flex-col gap-[62px]`}>
           {itemSedia.map((item) => (
             <div 
             key={item}
-            className={`flex items-center gap-[26px] bg-[rgba(51,49,56,1)] h-[145px] mr-[100px] px-[29px]`}>
-              <div className={`bg-[rgba(81,80,82,1)] border border-[rgba(255,49,46,1)] rounded-[10px] w-[93px] h-[93px] flex-shrink-0`}>
+            className={`flex items-center gap-[26px] bg-[rgba(51,49,56,1)] h-[145px] mr-[100px] px-[29px] [@media(1024px<width<=1440px)]:h-[120px]`}>
+              <div className={`bg-[rgba(81,80,82,1)] border border-[rgba(255,49,46,1)] rounded-[10px] w-[93px] h-[93px] flex-shrink-0 [@media(1024px<width<=1440px)]:w-[60px] [@media(1024px<width<=1440px)]:h-[60px]`}>
 
               </div>
               <div className={`w-auto flex flex-col gap-[13px]`}>
-                <h2 className={`text-[rgba(255,255,255,1)] text-[24px] font-semibold font-plex w-auto inline-block`}>{item.title}</h2>
-                <p className={`text-[rgba(255,255,255,1)] text-[20px] font-normal font-plex w-auto inline-block`}>{item.text}</p>
+                <h2 className={`text-[rgba(255,255,255,1)] text-[24px] font-semibold font-plex w-auto inline-block [@media(1024px<width<=1440px)]:text-[16px]`}>{item.title}</h2>
+                <p className={`text-[rgba(255,255,255,1)] text-[20px] font-normal font-plex w-auto inline-block [@media(1024px<width<=1440px)]:text-[14px]`}>{item.text}</p>
               </div>
             </div>  
           ))}
@@ -165,25 +165,19 @@ const LayananBeasiswa = () => {
   const itemBeasiswa = [
     {
       logo: "",
-      jenis: "KIP",
+      jenis: "Prestasi",
       pengelola: "Pemerintah",
       text: "Bantuan biaya pendidikan dan biaya hidup bagi mahasiswa dari keluarga kurang mampu yang berprestasi."
     },
     {
       logo: "",
-      jenis: "LPDP",
+      jenis: "Reguler",
       pengelola: "Pemerintah",
       text: "Bantuan biaya pendidikan dan biaya hidup bagi mahasiswa dari keluarga kurang mampu yang berprestasi."
     },
     {
       logo: "",
-      jenis: "Beasiswa Swasta",
-      pengelola: "Pemerintah",
-      text: "Bantuan biaya pendidikan dan biaya hidup bagi mahasiswa dari keluarga kurang mampu yang berprestasi."
-    },
-    {
-      logo: "",
-      jenis: "Beasiswa Internasional",
+      jenis: "Leadership",
       pengelola: "Pemerintah",
       text: "Bantuan biaya pendidikan dan biaya hidup bagi mahasiswa dari keluarga kurang mampu yang berprestasi."
     },
@@ -195,15 +189,15 @@ const LayananBeasiswa = () => {
       <div className={`relative overflow-hidden`}>
         <div className={`relative top-[-170px] mx-auto bg-[linear-gradient(90deg,rgba(81,80,82,1)0%,rgba(182,180,184,0.5)16%,rgba(255,255,255,0)30%,rgba(255,255,255,0)74%,rgba(182,180,184,0.5)87%,rgba(81,80,82,1)100%)] rounded-[50%] w-[1896px] h-[281px]`}></div>  
       </div>
-      <h1 className={`text-[64px] font-semibold font-plex w-[1085px] ml-[100px]`}>Jenis-jenis <span className={`text-[rgba(81,80,82,1)] font-bold`}>beasiswa</span> yang kami kelola</h1>
-      <div className={`flex mt-[136px] mx-[100px] grid grid-cols-2 gap-[70px]`}>
+      <h1 className={`text-[64px] font-semibold font-plex w-[1085px] ml-[100px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:text-[48]`}>Jenis-jenis <span className={`text-[rgba(81,80,82,1)] font-bold`}>beasiswa</span> yang kami kelola</h1>
+      <div className={`flex flex-col mt-[136px] mx-[100px] gap-[30px]`}>
         {itemBeasiswa.map((item) => (
           <div
           key={item}
-          className={`flex justify-center items-center bg-[linear-gradient(90deg,rgba(255,49,46,0)40%,rgba(255,49,46,1)100%)] w-[685px] h-[170px]`}
+          className={`bg-[linear-gradient(90deg,rgba(255,49,46,0)40%,rgba(255,49,46,1)100%)] w-[685px] h-[170px]`}
           >
-            <div className={`grid grid-cols-4 grid-rows-2 bg-[rgba(255,255,250,1)] w-[679px] h-[164px] p-[20px_50px_20px_50px]`}>
-              <div className={`w-[53px] h-[53px] bg-[rgba(81,80,82,1)]`}>
+            <div className={`flex bg-[rgba(255,255,250,1)] w-[679px] h-[164px]`}>
+              <div className={`w-[164pxpx] h-[164px] bg-[rgba(81,80,82,1)]`}>
 
               </div>
               <div className={`flex items-center col-[2/4]`}>
@@ -247,7 +241,7 @@ const PengajuanBeasiswa = () => {
         </h1>
         <div className="flex justify-between items-center mt-[97px]">
           <div className="flex flex-col gap-4">
-            {listItems.map((item, i) => (
+            {listItems.map((item) => (
               <div
                 key={item}
                 className="flex items-center bg-[rgba(51,49,56,1)] text-[32px] text-[rgba(255,255,250,1)] font-plex font-semibold w-[856px] h-[120px]"

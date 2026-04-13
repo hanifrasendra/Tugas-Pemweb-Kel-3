@@ -8,10 +8,15 @@ const RegisterPage = () => {
         const pass = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
 
+        if(!nama || !email || !pass || !confirmPassword) {
+            alert("Silakan isi semua field.");
+            return;
+        }
+
         const getUser = await fetch("http://localhost/web-kel-3/backend/getUsers.php")
 
         const user = await getUser.json();
-
+        //Cek apakah email yang dimasukkan sudah terdaftar atau belum
         const existingUser = user.data.find(u => u.email === email);
         
         // Cek apakah ada email dengan nama yang sudah terdaftar
@@ -20,6 +25,7 @@ const RegisterPage = () => {
         } else {
             //eksekusi jika tidak ada email dengan nama yang sama di temukan
 
+            // Cek apakah password dan confirm password cocok
             if(pass !== confirmPassword) {
                 alert("Password dan Confirm Password tidak cocok. Silakan periksa kembali.");
                 return;
@@ -34,7 +40,7 @@ const RegisterPage = () => {
             try {
                 console.log(dataLogin);
                 // path menuju file register.php di laragon
-                const response = await fetch("http://localhost/web-kel-3/backend/register.php", {
+                const response = await fetch("https://backend-portalbeasiswa.great-site.net/register.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
