@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 const LoginPage = () => {
 
-    const handleSubmit = async () => {
+    const handleSubmit = async ({setIsLogin}) => {
         const email = document.getElementById("email").value;
         const pass = document.getElementById("password").value;
 
@@ -21,6 +21,9 @@ const LoginPage = () => {
 
             if (data.status === "success") {
                 alert("Login berhasil!");
+                localStorage.setItem("isLogin", "true");
+
+                setIsLogin(true);
                 window.location.href = "/home";
             } else {
                 alert(data.message);

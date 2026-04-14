@@ -12,14 +12,17 @@ import TambahProposal from './pages/TambahProposal.jsx'
 import EditPage from './pages/EditPage.jsx'
 
 function App() {
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLogin") === "true"
+  );
 
   return (
     <BrowserRouter>
-        <Navigator />
+        <Navigator isLogin={isLogin} setIsLogin={setIsLogin}/>
         <Routes>
           <Route path="/" element={<HalamanUtama />} />
           <Route path="/home" element={<HalamanUtama />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/tambah" element={<TambahProposal />} />
