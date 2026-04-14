@@ -30,13 +30,31 @@ const CatalogPage = () => {
     return (
         <div className={`mx-[100px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mx-[24px]`}>
 
-            {/* Top Bar — Tab Status + Tombol Ajukan */}
-            <div className={`flex justify-between mt-[100px] [@media(0px<width<=768px)]:mt-[48px] [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:gap-[16px]`}>
-                <div className={`flex gap-[28px] [@media(0px<width<=768px)]:gap-[12px]`}>
-                    <div className={`flex justify-center items-center bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[20px] w-[150px] h-[50px] font-plex font-semibold [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Semua</div>
-                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Diterima</div>
-                    <div className={`flex justify-center items-center bg-[rgba(255,255,250,1)] shadow text-[rgba(0,0,0,1)] text-[20px] w-[150px] h-[50px] font-plex font-regular [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:w-[90px] [@media(0px<width<=768px)]:h-[40px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[120px]`}>Pending</div>
+            {/* Filter */}
+            <div className={`flex justify-between mt-[30px] gap-[20px] mt-[100px] [@media(0px<width<=768px)]:gap-[10px] [@media(0px<width<=768px)]:flex-wrap`}>
+                <div className={`flex [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:justify-between`}>
+                    <div
+                        onClick={() => setFilter("")}
+                        className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[8px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px] [@media(0px<width<=768px)]:w-auto`}>
+                        Semua
+                    </div>
+                    <div
+                        onClick={() => setFilter("Prestasi")}
+                        className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px] [@media(0px<width<=768px)]:w-auto`}>
+                        Prestasi
+                    </div>
+                    <div
+                        onClick={() => setFilter("Reguler")}
+                        className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px] [@media(0px<width<=768px)]:w-auto`}>
+                        Reguler
+                    </div>
+                    <div
+                        onClick={() => setFilter("Leadership")}
+                        className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px] [@media(0px<width<=768px)]:w-auto`}>
+                        Leadership
+                    </div>
                 </div>
+                
                 <button
                     onClick={() => navigate("/tambah")}
                     className={`bg-[rgba(51,49,56,1)] text-[rgba(255,255,250,1)] text-[20px] font-plex font-semibold w-[263px] h-[50px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:h-[44px] [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:w-[200px]`}>
@@ -47,29 +65,6 @@ const CatalogPage = () => {
             {/* Divider */}
             <div className={`bg-[rgba(51,49,56,1)] w-[630px] h-[2px] mt-[30px] [@media(0px<width<=768px)]:w-full [@media(768px<width<=1024px)]:w-full`}></div>
 
-            {/* Filter Chips */}
-            <div className={`flex mt-[30px] gap-[20px] [@media(0px<width<=768px)]:gap-[10px] [@media(0px<width<=768px)]:flex-wrap`}>
-                <div
-                    onClick={() => setFilter("")}
-                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
-                    Semua
-                </div>
-                <div
-                    onClick={() => setFilter("Prestasi")}
-                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
-                    Prestasi
-                </div>
-                <div
-                    onClick={() => setFilter("Reguler")}
-                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
-                    Reguler
-                </div>
-                <div
-                    onClick={() => setFilter("Leadership")}
-                    className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[18px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px]`}>
-                    Leadership
-                </div>
-            </div>
 
             {/* Grid Proposal Card */}
             <div className={`grid grid-cols-5 mt-[122px] gap-[20px] [@media(1024px<width<=1440px)]:grid-cols-4 [@media(768px<width<=1024px)]:grid-cols-3 [@media(768px<width<=1024px)]:mt-[60px] [@media(425px<width<=768px)]:grid-cols-2 [@media(0px<width<=425px)]:grid-cols-1 [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=400px)]:grid-cols-1`}>

@@ -59,18 +59,27 @@
                                     </button>
                                 </div>
                             ) : (
-                                <div className={"flex gap-[44px] [@media(1024px<width<=1440px)]:gap-[20px] [@media(0px<width<=1024px)]:hidden"}>
+                                <div className={"flex gap-[44px] [@media(1024px<width<=1440px)]:gap-[20px] "}>
                                     <button
-                                        className={"border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
+                                        className={"border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(0px<width<=1024px)]:hidden [@media(1024px<width<=1440px)]:text-[18px]"}
                                         onClick={() => navigate("/register")}
                                     >
                                         Register
                                     </button>
                                     <button
-                                        className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
+                                        className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(0px<width<=1024px)]:hidden [@media(1024px<width<=1440px)]:text-[18px]"}
                                         onClick={() => navigate("/login")}
                                     >
                                         Login
+                                    </button>
+                                    <button
+                                        className={"hidden [@media(0px<width<=1024px)]:flex flex-col justify-center items-center gap-[6px] w-[40px] h-[40px]"}
+                                        onClick={() => setMenuOpen(!menuOpen)}
+                                        aria-label="Toggle menu"
+                                    >
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[8px]" : ""}`}></span>
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}></span>
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}></span>
                                     </button>
                                 </div>
                             )}

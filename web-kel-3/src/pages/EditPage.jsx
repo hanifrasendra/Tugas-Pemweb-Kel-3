@@ -102,12 +102,13 @@ const EditPage = () => {
         if(!konfirmasi) return;
 
         try {
+            console.log("ID yang dikirim:", id);
             const response = await fetch("https://web-kel-3-backend.vercel.app/api/delete.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ id: id })
+                body: JSON.stringify({ id })
             });
 
             const result = await response.json();
@@ -235,7 +236,7 @@ const EditPage = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => handleDelete}
+                        onClick={handleDelete}
                         className={`flex justify-center items-center bg-transparent text-[rgba(255,49,46,1)] text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
                     >
                         Delete
