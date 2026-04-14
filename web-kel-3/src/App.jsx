@@ -13,7 +13,7 @@ import EditPage from './pages/EditPage.jsx'
 
 function App() {
   const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLogin") === "true"
+    localStorage.getItem("isLogin") === "false"
   );
 
   const [user, setUser] = useState(

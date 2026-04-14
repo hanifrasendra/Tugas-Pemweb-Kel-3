@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [dataProposal, setDataProposal] = useState({
         status: "",
         data: {}
@@ -95,6 +96,36 @@ const EditPage = () => {
         }
     }
 
+    const handleDelete = async () => {
+        const konfirmasi = confirm("Apakah Anda yakin ingin menghapus proposal ini? Tindakan ini tidak dapat dibatalkan.");
+
+        if(!konfirmasi) return;
+
+        try {
+            const response = await fetch("https://web-kel-3-backend.vercel.app/api/delete.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id: id })
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+                alert(result.message);
+                navigate("/catalog");
+            } else {
+                alert(result.message);
+            }
+
+        } catch (error) {
+            console.log(error);
+            alert("Terjadi kesalahan saat menghapus data.");
+        }
+
+    }
+
     return(
         <div className={`mx-[20px] md:mx-[50px] lg:mx-[100px]`}>
             <h1 className={`text-[24px] md:text-[28px] lg:text-[32px] mt-[100px] md:mt-[120px] lg:mt-[132px] font-plex font-bold`}>
@@ -122,7 +153,7 @@ const EditPage = () => {
                     <textarea id="deskripsi"
                         defaultValue={dataProposal.data.deskripsi}
                         placeholder="Deskripsi Proposal Ajuan Mu"
-                        className={`block border rounded-[10px] w-full lg:w-[1144px] h-[160px] md:h-[180px] lg:h-[202px] mt-[12px] md:mt-[18px] py-[10px] px-[15px] md:px-[20px] outline-none`}
+                        className={`block border rounded-[10px] w-full [@media(0px<width<=1440px)]:w-full h-[160px] md:h-[180px] lg:h-[202px] mt-[12px] md:mt-[18px] py-[10px] px-[15px] md:px-[20px] outline-none`}
                     />
                 </div>
 
@@ -201,6 +232,13 @@ const EditPage = () => {
                         className={`flex justify-center items-center bg-[rgba(81,80,82,1)] text-white text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
                     >
                         Batal
+                    </button>
+                    <button
+                        type="button"
+                        onClick={``}
+                        className={`flex justify-center items-center bg-transparent text-[rgba(255,49,46,1)] text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
+                    >
+                        Delete
                     </button>
 
                 </div>
