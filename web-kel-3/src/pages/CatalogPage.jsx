@@ -72,7 +72,7 @@ const CatalogPage = () => {
             </div>
 
             {/* Grid Proposal Card */}
-            <div className={`grid grid-cols-5 mt-[122px] gap-[20px] [@media(1024px<width<=1440px)]:grid-cols-4 [@media(768px<width<=1024px)]:grid-cols-3 [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:grid-cols-2 [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=400px)]:grid-cols-1`}>
+            <div className={`grid grid-cols-5 mt-[122px] gap-[20px] [@media(1024px<width<=1440px)]:grid-cols-4 [@media(768px<width<=1024px)]:grid-cols-3 [@media(768px<width<=1024px)]:mt-[60px] [@media(425px<width<=768px)]:grid-cols-2 [@media(0px<width<=425px)]:grid-cols-1 [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=400px)]:grid-cols-1`}>
                 {dataProposal.data.map(proposal => (
                     <div
                         key={proposal.id}

@@ -1,8 +1,10 @@
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
+    const navigate = useNavigate();
 
-    const handleSubmit = async ({setIsLogin}) => {
+    const handleSubmit = async () => {
         const email = document.getElementById("email").value;
         const pass = document.getElementById("password").value;
 
@@ -20,11 +22,17 @@ const LoginPage = () => {
             const data = await response.json();
 
             if (data.status === "success") {
+                console.log("RAW RESPONSE:", data);  // lihat isi aslinya
+                console.log(data.isLogin)
                 alert("Login berhasil!");
-                localStorage.setItem("isLogin", "true");
+                localStorage.setItem("isLogin", data.isLogin);
+                localStorage.setItem("user", JSON.stringify(data.user));
 
                 setIsLogin(true);
-                window.location.href = "/home";
+                setUser(data.user);
+                console.log(isLogin);
+                console.log(user);
+                navigate("/home");
             } else {
                 alert(data.message);
             }

@@ -1,11 +1,16 @@
     import { useNavigate } from "react-router-dom";
     import { useState } from "react";
 
-    const Navigator = ({isLogin, setIsLogin}) => {
+    const Navigator = ({isLogin, setIsLogin, user, setUser}) => {
         const navigate = useNavigate();
         const [menuOpen, setMenuOpen] = useState(false);
 
-
+        const handleLogout = () => {
+            alert("Anda telah logout!");
+            localStorage.removeItem("isLogin");
+            localStorage.removeItem("user");
+            setIsLogin(false);
+        }
 
         return (
             <div>
@@ -18,7 +23,7 @@
                                 onClick={() => navigate("/")}
                                 className={"cursor-pointer"}
                             >
-                                <h1 className={"text-[rgba(0,1,3,1)] text-[32px] font-bold font-plex [@media(1024px<width<=1440px)]:text-[28px] [@media(768px<width<=1024px)]:text-[24px] [@media(0px<width<=768px)]:text-[20px]"}>
+                                <h1 className={"text-[rgba(0,1,3,1)] text-[32px] font-bold font-plex [@media(1024px<width<=1440px)]:text-[28px] [@media(768px<width<=1024px)]:text-[24px] [@media(425px<width<=768px)]:text-[14px] [@media(0px<width<=425px)]:text-[12px]"}>
                                     Portal Beasiswa
                                 </h1>
                             </div>
@@ -32,31 +37,43 @@
                             </ul>
 
                             {/* Buttons — hidden di mobile & tablet */}
-                            <div className={"flex gap-[44px] [@media(1024px<width<=1440px)]:gap-[20px] [@media(0px<width<=1024px)]:hidden"}>
-                                <button
-                                    className={"border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
-                                    onClick={() => navigate("/register")}
-                                >
-                                    Register
-                                </button>
-                                <button
-                                    className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
-                                    onClick={() => navigate("/login")}
-                                >
-                                    Login
-                                </button>
-                            </div>
-
-                            {/* Hamburger Button — hanya tampil di mobile & tablet */}
-                            <button
-                                className={"hidden [@media(0px<width<=1024px)]:flex flex-col justify-center items-center gap-[6px] w-[40px] h-[40px]"}
-                                onClick={() => setMenuOpen(!menuOpen)}
-                                aria-label="Toggle menu"
-                            >
-                                <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[8px]" : ""}`}></span>
-                                <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}></span>
-                                <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}></span>
-                            </button>
+                            {isLogin ? (
+                                <div className={`flex justify-center items-center gap-[20px]`}>
+                                    <div>
+                                        <p className={`text-[14px] font-plex [@media(768px<width<=1024px)]:text-[12px] [@media(425px<width<=768px)]:text-[10px] [@media(0px<width<=425px)]:text-[8px]`}>Halo! {user.nama}</p>
+                                    </div>
+                                    <button
+                                        className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(0px<width<=1024px)]:hidden [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
+                                        onClick={() => handleLogout()}
+                                    >
+                                        Logout
+                                    </button>
+                                    <button
+                                        className={"hidden [@media(0px<width<=1024px)]:flex flex-col justify-center items-center gap-[6px] w-[40px] h-[40px]"}
+                                        onClick={() => setMenuOpen(!menuOpen)}
+                                        aria-label="Toggle menu"
+                                    >
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[8px]" : ""}`}></span>
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}></span>
+                                        <span className={`block w-[26px] h-[2px] bg-[rgba(0,1,3,1)] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}></span>
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className={"flex gap-[44px] [@media(1024px<width<=1440px)]:gap-[20px] [@media(0px<width<=1024px)]:hidden"}>
+                                    <button
+                                        className={"border-2 border-[rgba(255,49,46,1)] text-[20px] text-[rgba(255,49,46,1)] font-semibold h-[44px] w-[153px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
+                                        onClick={() => navigate("/register")}
+                                    >
+                                        Register
+                                    </button>
+                                    <button
+                                        className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
+                                        onClick={() => navigate("/login")}
+                                    >
+                                        Login
+                                    </button>
+                                </div>
+                            )}
 
                         </nav>
                     </div>

@@ -16,13 +16,17 @@ function App() {
     localStorage.getItem("isLogin") === "true"
   );
 
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  )
+
   return (
     <BrowserRouter>
-        <Navigator isLogin={isLogin} setIsLogin={setIsLogin}/>
+        <Navigator isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/>
         <Routes>
           <Route path="/" element={<HalamanUtama />} />
           <Route path="/home" element={<HalamanUtama />} />
-          <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
+          <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser} />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/tambah" element={<TambahProposal />} />

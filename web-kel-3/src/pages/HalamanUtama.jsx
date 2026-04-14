@@ -20,10 +20,10 @@ const Hero = () => {
   return (
     <div
       id="beranda"
-      className={`bg-[rgba(255,255,255,1)] h-[999px] [@media(0px<width<=768px)]:h-auto [@media(768px<width<=1024px)]:h-auto`}
+      className={`bg-[rgba(255,255,255,1)] h-[999px] [@media(0px<width<=768px)]:h-[600px] [@media(768px<width<=1024px)]:h-[700px]`}
     >
       <div className={`absolute z-0 w-full h-[999px] overflow-hidden [@media(0px<width<=768px)]:h-[600px] [@media(768px<width<=1024px)]:h-[700px]`}>
-        <div className={`absolute right-[0px] bottom-[0px] bg-[rgba(255,49,46,1)] w-[545.62px] h-[760.81px] rotate-[55.63deg] rounded-[50%] blur-[180px] [@media(0px<width<=768px)]:w-[300px] [@media(0px<width<=768px)]:h-[400px] [@media(768px<width<=1024px)]:w-[400px] [@media(768px<width<=1024px)]:h-[550px]`}></div>
+        <div className={`absolute right-[0px] bottom-[0px] bg-[rgba(255,49,46,1)] w-[545.62px] h-[760.81px] rotate-[55.63deg] rounded-[50%] blur-[180px] [@media(0px<width<=768px)]: [@media(0px<width<=768px)]:w-[300px] [@media(0px<width<=768px)]:h-[400px] [@media(768px<width<=1024px)]:w-[200px] [@media(768px<width<=1024px)]:h-[350px]`}></div>
       </div>
       <div className={`flex flex-col justify-center h-full relative z-1 py-[80px] [@media(0px<width<=768px)]:py-[120px] [@media(768px<width<=1024px)]:py-[140px]`}>
         <h1 className={`text-[64px] font-plex font-semibold text-center mx-auto [@media(0px<width<=768px)]:text-[32px] [@media(0px<width<=768px)]:px-[24px] [@media(768px<width<=1024px)]:text-[48px] [@media(768px<width<=1024px)]:px-[40px] [@media(1024px<width<=1440px)]:text-[48px]`}>
@@ -49,7 +49,7 @@ const IdentitasPortal = () => {
   return (
     <div
       id="profil"
-      className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px] [@media(1024px<width<=1440px)]:h-[800px] [@media(768px<width<=1024px)]:flex-col [@media(768px<width<=1024px)]:h-auto [@media(768px<width<=1024px)]:rounded-[20px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:rounded-[20px]`}
+      className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px] [@media(1024px<width<=1440px)]:h-[950px] [@media(768px<width<=1024px)]:flex-col [@media(768px<width<=1024px)]:h-auto [@media(768px<width<=1024px)]:rounded-[20px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:rounded-[20px]`}
     >
       <div className={`bg-[rgba(0,1,3,1)] w-[55%] h-full rounded-[30px] pl-[100px] pr-[50px] [@media(1024px<width<=1440px)]:w-[976px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:rounded-[20px] [@media(768px<width<=1024px)]:pl-[40px] [@media(768px<width<=1024px)]:pr-[40px] [@media(768px<width<=1024px)]:pb-[40px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:rounded-[20px] [@media(0px<width<=768px)]:pl-[24px] [@media(0px<width<=768px)]:pr-[24px] [@media(0px<width<=768px)]:pb-[40px]`}>
         <h1 className={`text-[rgba(255,255,255,1)] text-[56px] font-plex font-semibold mt-[118px] [@media(1024px<width<=1440px)]:text-[32px] [@media(768px<width<=1024px)]:text-[36px] [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:text-[26px] [@media(0px<width<=768px)]:mt-[48px]`}>
@@ -62,7 +62,7 @@ const IdentitasPortal = () => {
         <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex mt-[28px] [@media(1024px<width<=1440px)]:text-[20px] [@media(768px<width<=1024px)]:text-[18px] [@media(0px<width<=768px)]:text-[15px]`}>
           Kami bukan lembaga pemberi beasiswa. Kami adalah agregator dan kurator informasi. Setiap data yang kami sajikan berasal langsung dari sumber resmi.
         </p>
-        <div className={`flex justify-center items-center bg-[rgba(51,49,56,1)] text-[rgba(255,255,255,1)] font-plex h-[150px] mt-[70px] mr-[40px] border border-[rgba(255,49,46,1)] [@media(768px<width<=1024px)]:mr-[0px] [@media(768px<width<=1024px)]:mt-[40px] [@media(0px<width<=768px)]:mr-[0px] [@media(0px<width<=768px)]:mt-[32px] [@media(0px<width<=768px)]:h-[100px]`}>
+        <div className={`flex justify-center items-center bg-[rgba(51,49,56,1)] text-[rgba(255,255,255,1)] font-plex h-[150px] mt-[70px] mr-[40px] border border-[rgba(255,49,46,1)] [@media(768px<width<=1024px)]:mr-[0px] [@media(768px<width<=1024px)]:mt-[40px] [@media(0px<width<=768px)]:mr-[0px] [@media(0px<width<=768px)]:mt-[32px] [@media(768px<width<=1024px)]:h-[120px] [@media(0px<width<=768px)]:h-[80px]`}>
           Layanan 100% Gratis untuk seluruh mahasiswa Indonesia.
         </div>
       </div>
@@ -100,12 +100,12 @@ const LayananBeasiswa = () => {
       className={`h-auto bg-[rgba(255,255,250),1] pb-[200px] [@media(0px<width<=768px)]:pb-[80px] [@media(768px<width<=1024px)]:pb-[100px]`}
     >
       <div className={`relative overflow-hidden`}>
-        <div className={`relative top-[-170px] mx-auto bg-[linear-gradient(90deg,rgba(81,80,82,1)0%,rgba(182,180,184,0.5)16%,rgba(255,255,255,0)30%,rgba(255,255,255,0)74%,rgba(182,180,184,0.5)87%,rgba(81,80,82,1)100%)] rounded-[50%] w-[1896px] h-[281px] [@media(0px<width<=768px)]:w-full [@media(768px<width<=1024px)]:w-full`}></div>
+        <div className={`relative top-[-170px] mx-auto bg-[linear-gradient(90deg,rgba(81,80,82,1)0%,rgba(182,180,184,0.5)16%,rgba(255,255,255,0)30%,rgba(255,255,255,0)74%,rgba(182,180,184,0.5)87%,rgba(81,80,82,1)100%)] rounded-[50%] w-[98%] h-[281px] [@media(0px<width<=768px)]:w-[99%] [@media(768px<width<=1024px)]:w-[98%]`}></div>
       </div>
       <p className={`text-[32px] text-[rgba(255,49,46,1)] font-plex font-semibold mx-[100px] pl-[20px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:pl-[0px] [@media(768px<width<=1024px)]:text-center [@media(768px<width<=1024px)]:pl-[0px] [@media(768px<width<=1024px)]:mx-[40px] [@media(768px<width<=1024px)]:text-[24px] [@media(0px<width<=768px)]:text-center [@media(0px<width<=768px)]:pl-[0px] [@media(0px<width<=768px)]:mx-[24px] [@media(0px<width<=768px)]:text-[20px]`}>
         Kategori Program
       </p>
-      <h1 className={`text-[64px] font-semibold font-plex w-[1085px] mt-[40px] mx-[100px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:text-[48px] [@media(768px<width<=1024px)]:text-center [@media(768px<width<=1024px)]:text-[40px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:mx-[0px] [@media(768px<width<=1024px)]:px-[40px] [@media(768px<width<=1024px)]:mt-[24px] [@media(0px<width<=768px)]:text-center [@media(0px<width<=768px)]:text-[28px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:mx-[0px] [@media(0px<width<=768px)]:px-[24px] [@media(0px<width<=768px)]:mt-[16px]`}>
+      <h1 className={`text-[64px] font-semibold font-plex w-[1085px] mt-[40px] mx-[100px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:w-auto [@media(1024px<width<=1440px)]:text-[48px] [@media(768px<width<=1024px)]:text-[36px] [@media(768px<width<=1024px)]:text-center [@media(768px<width<=1024px)]:text-[40px] [@media(768px<width<=1024px)]:w-auto [@media(768px<width<=1024px)]:mx-[0px] [@media(768px<width<=1024px)]:px-[40px] [@media(768px<width<=1024px)]:mt-[24px] [@media(0px<width<=768px)]:text-center [@media(0px<width<=768px)]:text-[28px] [@media(0px<width<=768px)]:mx-[0px] [@media(0px<width<=768px)]:px-[24px] [@media(0px<width<=768px)]:w-auto [@media(0px<width<=768px)]:mt-[16px]`}>
         Jenis-jenis <span className={`text-[rgba(81,80,82,1)] font-bold`}>beasiswa</span> yang kami kelola
       </h1>
       <div className={`flex flex-col mt-[136px] mx-[100px] gap-[30px] [@media(768px<width<=1024px)]:mt-[60px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=768px)]:mx-[24px]`}>
