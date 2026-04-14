@@ -28,7 +28,7 @@ const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
                             className="cursor-pointer flex-shrink-0"
                         >
                             <h1 className="text-[rgba(0,1,3,1)] text-[32px] font-bold font-plex [@media(1024px<width<=1440px)]:text-[28px] [@media(768px<width<=1024px)]:text-[24px] [@media(0px<width<=768px)]:text-[20px]">
-                                ScholarHub
+                                Scholar<span className={`text-[rgba(255,49,46,1)]`}>Hub</span>
                             </h1>
                         </div>
 
