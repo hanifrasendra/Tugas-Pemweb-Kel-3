@@ -235,7 +235,7 @@ const EditPage = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={``}
+                        onClick={() => handleDelete}
                         className={`flex justify-center items-center bg-transparent text-[rgba(255,49,46,1)] text-[20px] md:text-[26px] lg:text-[32px] font-plex font-semibold w-full md:w-[250px] lg:w-[372px] h-[60px] md:h-[65px] lg:h-[73px] cursor-pointer`}
                     >
                         Delete
