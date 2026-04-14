@@ -40,7 +40,7 @@
                             {isLogin ? (
                                 <div className={`flex justify-center items-center gap-[20px]`}>
                                     <div>
-                                        <p className={`text-[14px] font-plex [@media(768px<width<=1024px)]:text-[12px] [@media(425px<width<=768px)]:text-[10px] [@media(0px<width<=425px)]:text-[8px]`}>Halo! {user.nama}</p>
+                                        <p className={`text-[14px] font-plex [@media(768px<width<=1024px)]:text-[12px] [@media(425px<width<=768px)]:text-[10px] [@media(0px<width<=425px)]:text-[8px]`}>Halo! {user?.nama}</p>
                                     </div>
                                     <button
                                         className={"bg-[rgba(81,80,82,1)] text-[20px] text-[rgba(255,255,255,1)] font-semibold h-[44px] w-[121px] font-plex [@media(0px<width<=1024px)]:hidden [@media(1024px<width<=1440px)]:w-[125px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[18px]"}
