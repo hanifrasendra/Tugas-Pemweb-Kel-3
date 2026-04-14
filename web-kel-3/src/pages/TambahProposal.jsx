@@ -1,177 +1,149 @@
-const TambahProposal = () => {
-    
-    const handleSubmit = async () => {
-        const nama = document.getElementById("nama").value;
-        const deskripsi = document.getElementById("deskripsi").value;
-        const universitas = document.getElementById("universitas").value;
-        const prodi = document.getElementById("prodi").value;
-        const semester = document.getElementById("semester").value;
-        const ipk = document.getElementById("ipk").value;
-        const tipeBeasiswa = document.getElementById("tipe-beasiswa").value;
+import React from 'react';
 
-        if(!nama || !deskripsi || !universitas || !prodi || !semester || !ipk || !tipeBeasiswa) {
-            alert("Semua field harus diisi.");
+const TambahProposal = () => {
+    const handleSubmit = async () => {
+        const fields = ["nama", "deskripsi", "universitas", "prodi", "semester", "ipk", "ukt", "tipe-beasiswa"];
+        const values = {};
+        
+        let isValid = true;
+        fields.forEach(field => {
+            const val = document.getElementById(field).value;
+            if (!val) isValid = false;
+            values[field] = val;
+        });
+
+        if (!isValid) {
+            alert("Harap lengkapi semua field yang tersedia.");
             return;
         }
-
-        const dataPengajuan = { nama, deskripsi, universitas, prodi, semester, ipk, tipeBeasiswa };
 
         try {
             const response = await fetch("https://web-kel-3-backend.vercel.app/api/pengajuan.php", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(dataPengajuan)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values)
             });
 
-            const pengajuan = await response.json();
+            const resData = await response.json();
 
-            if(pengajuan.status === "success") {
-                alert(pengajuan.message);
+            if (resData.status === "success") {
+                alert(resData.message);
                 window.location.href = "/catalog";
             } else {
-                alert(pengajuan.message);
+                alert(resData.message);
             }
-
         } catch {
-            alert("Terjadi kesalahan.");
+            alert("Terjadi kesalahan koneksi ke server.");
         }
-    }
+    };
 
     const handleCancel = () => {
-        const status = confirm("Batalkan pengajuan?");
-        if(status) {
-            document.getElementById("nama").value = "";
-            document.getElementById("deskripsi").value = "";
-            document.getElementById("universitas").value = "";
-            document.getElementById("prodi").value = "";
-            document.getElementById("semester").value = "";
-            document.getElementById("ipk").value = "";
-            document.getElementById("tipe-beasiswa").selectedIndex = 0;
+        if (confirm("Apakah Anda yakin ingin membatalkan pengajuan ini? Semua data yang diisi akan hilang.")) {
+            window.location.reload();
         }
-    }
+    };
 
-    return(
-        <div className={`
-            mx-[20px]
-            [@media(min-width:768px)]:mx-[50px]
-            [@media(min-width:1024px)]:mx-[100px]
-        `}>
-            <h1 className={`
-                font-plex font-bold 
-                text-[24px]
-                [@media(min-width:768px)]:text-[28px]
-                [@media(min-width:1024px)]:text-[32px]
-                mt-[80px]
-                [@media(min-width:1024px)]:mt-[132px]
-            `}>
-                Ajukan Proposal Beasiswa
-            </h1>
+    // Style Helper
+    const labelStyle = "text-[16px] font-plex font-bold text-[#333] mb-2 block";
+    const inputStyle = "w-full border-b-2 border-gray-300 bg-gray-50 px-4 py-3 font-plex focus:border-[#FF312E] focus:bg-white outline-none transition-all duration-300";
 
-            <div className="mt-[40px] [@media(min-width:1024px)]:mt-[52px]">
-                <form className={`
-                    flex flex-col 
-                    gap-[40px]
-                    [@media(min-width:1024px)]:gap-[62px]
-                    pt-[40px]
-                    [@media(min-width:1024px)]:pt-[74px]
-                    mb-[150px]
-                    [@media(min-width:1024px)]:mb-[247px]
-                    px-[20px]
-                    [@media(min-width:1024px)]:pl-[53px]
-                    shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
-                `}>
+    return (
+        <div className="min-h-screen bg-[#FBF9FF] pb-20">
+            {/* Header Section */}
+            <div className="bg-white pt-[120px] pb-[60px] shadow-sm px-[20px] [@media(min-width:1024px)]:px-[100px]">
+                <h1 className="font-plex font-bold text-[32px] [@media(min-width:1024px)]:text-[48px] text-[#000103]">
+                    Ajukan <span className="text-[#FF312E]">Proposal</span> Beasiswa
+                </h1>
+                <p className="text-gray-500 mt-2 font-plex max-w-[600px]">
+                    Isi data diri dan kebutuhan akademik Anda secara akurat untuk mempermudah proses kurasi beasiswa.
+                </p>
+            </div>
 
-                    {/* Nama */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Nama Lengkap</label>
-                        <input id="nama"
-                            className="block border w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
+            {/* Form Card */}
+            <div className="mx-[20px] [@media(min-width:1024px)]:mx-[100px] mt-[-30px]">
+                <form className="bg-white shadow-[0px_10px_40px_rgba(0,0,0,0.08)] rounded-[20px] p-6 [@media(min-width:1024px)]:p-12 overflow-hidden">
+                    
+                    <div className="grid grid-cols-1 [@media(min-width:1024px)]:grid-cols-2 gap-x-12 gap-y-8">
+                        
+                        {/* Nama */}
+                        <div className="col-span-1">
+                            <label className={labelStyle}>Nama Lengkap</label>
+                            <input id="nama" type="text" placeholder="Masukkan nama sesuai KTP" className={inputStyle} />
+                        </div>
+
+                        {/* Tipe Beasiswa */}
+                        <div className="col-span-1">
+                            <label className={labelStyle}>Tipe Beasiswa</label>
+                            <select id="tipe-beasiswa" className={`${inputStyle} cursor-pointer`}>
+                                <option value="" disabled selected>Pilih kategori beasiswa</option>
+                                <option value="Reguler">Reguler</option>
+                                <option value="Prestasi">Prestasi</option>
+                                <option value="Leadership">Leadership</option>
+                            </select>
+                        </div>
+
+                        {/* Universitas */}
+                        <div className="col-span-1">
+                            <label className={labelStyle}>Universitas</label>
+                            <input id="universitas" type="text" placeholder="Contoh: Universitas Gadjah Mada" className={inputStyle} />
+                        </div>
+
+                        {/* Prodi */}
+                        <div className="col-span-1">
+                            <label className={labelStyle}>Program Studi</label>
+                            <input id="prodi" type="text" placeholder="Contoh: Teknik Informatika" className={inputStyle} />
+                        </div>
+
+                        {/* Detail Akademik Grid */}
+                        <div className="col-span-1 grid grid-cols-3 gap-4">
+                            <div>
+                                <label className={labelStyle}>Semester</label>
+                                <input id="semester" type="number" placeholder="1-14" className={inputStyle} />
+                            </div>
+                            <div>
+                                <label className={labelStyle}>IPK</label>
+                                <input id="ipk" type="text" placeholder="4.00" className={inputStyle} />
+                            </div>
+                            <div>
+                                <label className={labelStyle}>UKT</label>
+                                <input id="ukt" type="text" placeholder="Jutaan" className={inputStyle} />
+                            </div>
+                        </div>
+
+                        {/* Deskripsi (Full Width) */}
+                        <div className="col-span-1 [@media(min-width:1024px)]:col-span-2">
+                            <label className={labelStyle}>Alasan Mengikuti Beasiswa</label>
+                            <textarea 
+                                id="deskripsi" 
+                                placeholder="Ceritakan motivasi dan kondisi ekonomi Anda secara singkat dan jelas..."
+                                className={`${inputStyle} h-[150px] rounded-sm resize-none`} 
+                            />
+                        </div>
                     </div>
 
-                    {/* Deskripsi */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Deskripsi</label>
-                        <textarea id="deskripsi"
-                            className="block border rounded-[10px] w-full max-w-[1144px] h-[160px] [@media(min-width:1024px)]:h-[202px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* Universitas */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Universitas</label>
-                        <input id="universitas"
-                            className="border-[0px_0px_0px_1px] block w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* Prodi */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Prodi</label>
-                        <input id="prodi"
-                            className="border-[0px_0px_0px_1px] block w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* Semester */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Semester</label>
-                        <input id="semester"
-                            className="border-[0px_0px_0px_1px] block w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* UKT */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">UKT</label>
-                        <input id="ukt"
-                            className="border-[0px_0px_0px_1px] block w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* IPK */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">IPK</label>
-                        <input id="ipk"
-                            className="border-[0px_0px_0px_1px] block w-full max-w-[639px] h-[60px] [@media(min-width:1024px)]:h-[69px] mt-[18px] px-[20px]" />
-                    </div>
-
-                    {/* Select */}
-                    <div>
-                        <label className="text-[20px] font-plex font-semibold">Tipe Beasiswa</label>
-                        <select id="tipe-beasiswa"
-                            className="block text-[20px] w-full max-w-[240px] h-[44px] mt-[18px] shadow rounded-[10px]">
-                            <option value="" disabled hidden>Pilih Tipe</option>
-                            <option value="Reguler">Reguler</option>
-                            <option value="Prestasi">Prestasi</option>
-                            <option value="Leadership">Leadership</option>
-                        </select>
-                    </div>
-
-                    {/* BUTTON */}
-                    <div className={`
-                        flex flex-col gap-[20px]
-                        [@media(min-width:768px)]:flex-row
-                        [@media(min-width:768px)]:gap-[40px]
-                        [@media(min-width:1024px)]:gap-[115px]
-                        mt-[60px]
-                        [@media(min-width:1024px)]:mt-[93px]
-                        mb-[100px]
-                        [@media(min-width:1024px)]:mb-[150px]
-                    `}>
+                    {/* Action Buttons */}
+                    <div className="flex flex-col [@media(min-width:768px)]:flex-row gap-4 mt-12 border-t pt-8">
                         <button
                             type="button"
                             onClick={handleSubmit}
-                            className="bg-[rgba(255,49,46,1)] text-white text-[20px] [@media(min-width:1024px)]:text-[32px] w-full max-w-[372px] h-[60px] [@media(min-width:1024px)]:h-[73px]">
-                            Ajukan
+                            className="bg-[#FF312E] hover:bg-[#D62825] text-white font-bold text-[18px] [@media(min-width:1024px)]:text-[20px] px-12 py-4 rounded-lg transition-all duration-300 shadow-lg shadow-red-200"
+                        >
+                            Kirim Pengajuan
                         </button>
 
                         <button
                             type="button"
                             onClick={handleCancel}
-                            className="bg-[rgba(81,80,82,1)] text-white text-[20px] [@media(min-width:1024px)]:text-[32px] w-full max-w-[372px] h-[60px] [@media(min-width:1024px)]:h-[73px]">
-                            Batal
+                            className="bg-transparent hover:bg-gray-100 text-gray-500 font-bold text-[18px] [@media(min-width:1024px)]:text-[20px] px-12 py-4 rounded-lg transition-all"
+                        >
+                            Batalkan
                         </button>
                     </div>
 
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default TambahProposal;

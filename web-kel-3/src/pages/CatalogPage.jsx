@@ -32,7 +32,7 @@ const CatalogPage = () => {
 
             {/* Filter */}
             <div className={`flex justify-between mt-[30px] gap-[20px] mt-[100px] [@media(0px<width<=768px)]:gap-[10px] [@media(0px<width<=768px)]:flex-wrap`}>
-                <div className={`flex [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:justify-between`}>
+                <div className={`flex gap-[20px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:gap-[0px] [@media(0px<width<=768px)]:justify-between`}>
                     <div
                         onClick={() => setFilter("")}
                         className={`flex justify-center items-center bg-[rgba(255,255,250,1)] font-plex shadow h-[40px] px-[30px] cursor-pointer [@media(0px<width<=768px)]:px-[8px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:h-[36px] [@media(0px<width<=768px)]:w-auto`}>

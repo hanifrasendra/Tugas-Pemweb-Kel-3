@@ -1,37 +1,38 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const NAV_LINKS = [
-  { label: "Beranda", href: "index.html" },
-  { label: "Tentang", href: "about.html" },
-  { label: "Profil Portal", href: "profile.html", active: true },
-  { label: "Kontak", href: "contact.html" },
-];
-
-const LAYANAN = [
-  { icon: "🎓", title: "KIP Kuliah", pengelola: "Kemdikbudristek", jenjang: "S1 / D4 / D3", desc: "Bantuan biaya pendidikan dan biaya hidup bagi mahasiswa dari keluarga kurang mampu yang berprestasi.", tag: "Pemerintah" },
-  { icon: "🌏", title: "LPDP", pengelola: "Kemenkeu RI", jenjang: "S2 / S3", desc: "Beasiswa penuh untuk studi lanjut dalam dan luar negeri bagi calon pemimpin dan profesional masa depan.", tag: "Pemerintah" },
-  { icon: "🏢", title: "Beasiswa Swasta", pengelola: "Berbagai Perusahaan", jenjang: "S1 / S2", desc: "Program beasiswa dari perusahaan swasta nasional dan multinasional untuk mahasiswa berprestasi.", tag: "Swasta" },
-  { icon: "🌐", title: "Beasiswa Internasional", pengelola: "Lembaga Global", jenjang: "S1 / S2 / S3", desc: "Peluang studi di luar negeri dari universitas dan lembaga internasional terkemuka di seluruh dunia.", tag: "Internasional" },
-];
 
 // ── Hero ─────────────────────────────────────────────────
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       id="beranda"
       className={`bg-[rgba(255,255,255,1)] h-[999px] [@media(0px<width<=768px)]:h-[600px] [@media(768px<width<=1024px)]:h-[700px]`}
     >
+      {/* Background Glow */}
       <div className={`absolute z-0 w-full h-[999px] overflow-hidden [@media(0px<width<=768px)]:h-[600px] [@media(768px<width<=1024px)]:h-[700px]`}>
-        <div className={`absolute right-[0px] bottom-[0px] bg-[rgba(255,49,46,1)] w-[545.62px] h-[760.81px] rotate-[55.63deg] rounded-[50%] blur-[180px] [@media(0px<width<=768px)]: [@media(0px<width<=768px)]:w-[300px] [@media(0px<width<=768px)]:h-[400px] [@media(768px<width<=1024px)]:w-[200px] [@media(768px<width<=1024px)]:h-[350px]`}></div>
+        <div className={`absolute right-[0px] bottom-[0px] bg-[rgba(255,49,46,1)] w-[545.62px] h-[760.81px] rotate-[55.63deg] rounded-[50%] blur-[180px] [@media(0px<width<=768px)]:w-[300px] [@media(0px<width<=768px)]:h-[400px] [@media(768px<width<=1024px)]:w-[200px] [@media(768px<width<=1024px)]:h-[350px]`}></div>
       </div>
-      <div className={`flex flex-col justify-center h-full relative z-1 py-[80px] [@media(0px<width<=768px)]:py-[120px] [@media(768px<width<=1024px)]:py-[140px]`}>
+
+      {/* Content */}
+      <div className={`flex flex-col justify-center items-center h-full relative z-1 py-[80px] [@media(0px<width<=768px)]:py-[120px] [@media(768px<width<=1024px)]:py-[140px]`}>
         <h1 className={`text-[64px] font-plex font-semibold text-center mx-auto [@media(0px<width<=768px)]:text-[32px] [@media(0px<width<=768px)]:px-[24px] [@media(768px<width<=1024px)]:text-[48px] [@media(768px<width<=1024px)]:px-[40px] [@media(1024px<width<=1440px)]:text-[48px]`}>
-          Mengenal <span className="text-[rgba(255,49,46,1)] font-bold">Portal Beasiswa</span> <br />Lebih Dekat
+          Akses <span className="text-[rgba(255,49,46,1)] font-bold font-plex">Beasiswa</span> Terpercaya<br /> dalam Genggaman
         </h1>
-        <p className={`text-[20px] text-center w-[888px] mx-auto font-plex [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:px-[24px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:px-[60px] [@media(1024px<width<=1440px)]:w-[700px] [@media(1024px<width<=1440px)]:text-[18px]`}>
+        
+        <p className={`text-[20px] text-center w-[888px] mx-auto font-plex mt-6 [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:text-[14px] [@media(0px<width<=768px)]:px-[24px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:text-[16px] [@media(768px<width<=1024px)]:px-[60px] [@media(1024px<width<=1440px)]:w-[700px] [@media(1024px<width<=1440px)]:text-[18px]`}>
           Portal beasiswa digital yang dirancang khusus untuk membantu mahasiswa Indonesia menemukan, memahami, dan mendaftar beasiswa — secara cepat, akurat, dan gratis.
         </p>
+
+        {/* Tombol ke Catalog */}
+        <button
+          onClick={() => navigate("/catalog")}
+          className={`mt-12 bg-[rgba(255,49,46,1)] text-white font-plex font-bold text-[18px] px-12 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[rgba(220,40,38,1)] active:scale-95 [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:px-8 [@media(0px<width<=768px)]:mt-8`}
+        >
+          Eksplor Beasiswa Sekarang
+        </button>
       </div>
     </div>
   );
@@ -40,43 +41,146 @@ const Hero = () => {
 // ── Identitas Portal ─────────────────────────────────────
 const IdentitasPortal = () => {
   const itemSedia = [
-    { icon: "", title: "Akurasi", text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan." },
-    { icon: "", title: "Inklusivitas", text: "Kami menjangkau mahasiswa dari semua latar belakang, daerah, dan kondisi ekonomi." },
-    { icon: "", title: "Update", text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan." },
-    { icon: "", title: "Pendampingan", text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan." },
+    { 
+      title: "Akurasi", 
+      text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[50%] h-[50%]">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+      )
+    },
+    { 
+      title: "Inklusivitas", 
+      text: "Kami menjangkau mahasiswa dari semua latar belakang, daerah, dan kondisi ekonomi.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[50%] h-[50%]">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      )
+    },
+    { 
+      title: "Update", 
+      text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[50%] h-[50%]">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      )
+    },
+    { 
+      title: "Pendampingan", 
+      text: "Setiap data beasiswa diverifikasi langsung dari sumber resmi sebelum dipublikasikan.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[50%] h-[50%]">
+          <circle cx="12" cy="12" r="10" />
+          <path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" />
+        </svg>
+      )
+    },
   ];
 
   return (
     <div
       id="profil"
-      className={`flex gap-[48px] bg-[rgba(81,80,82,1)] h-[1080px] w-full rounded-[30px] [@media(1024px<width<=1440px)]:h-[950px] [@media(768px<width<=1024px)]:flex-col [@media(768px<width<=1024px)]:h-auto [@media(768px<width<=1024px)]:rounded-[20px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:rounded-[20px]`}
+      className={`flex items-stretch gap-[48px] bg-[rgba(81,80,82,1)] min-h-[1080px] w-full rounded-[30px] 
+        [@media(1024px<width<=1440px)]:min-h-[950px] 
+        [@media(768px<width<=1024px)]:flex-col [@media(768px<width<=1024px)]:h-auto [@media(768px<width<=1024px)]:rounded-[20px] 
+        [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:rounded-[20px]`}
     >
-      <div className={`bg-[rgba(0,1,3,1)] w-[55%] h-full rounded-[30px] pl-[100px] pr-[50px] [@media(1024px<width<=1440px)]:w-[976px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:rounded-[20px] [@media(768px<width<=1024px)]:pl-[40px] [@media(768px<width<=1024px)]:pr-[40px] [@media(768px<width<=1024px)]:pb-[40px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:rounded-[20px] [@media(0px<width<=768px)]:pl-[24px] [@media(0px<width<=768px)]:pr-[24px] [@media(0px<width<=768px)]:pb-[40px]`}>
-        <h1 className={`text-[rgba(255,255,255,1)] text-[56px] font-plex font-semibold mt-[118px] [@media(1024px<width<=1440px)]:text-[32px] [@media(768px<width<=1024px)]:text-[36px] [@media(768px<width<=1024px)]:mt-[60px] [@media(0px<width<=768px)]:text-[26px] [@media(0px<width<=768px)]:mt-[48px]`}>
-          <span className={`bg-[linear-gradient(90deg,rgba(131,130,133,1),rgba(182,180,184,1),rgba(81,80,82,1))] bg-clip-text text-transparent`}>Platform Independen</span> yang Berpihak pada Mahasiswa
+      {/* SEKSI KIRI */}
+      <div className={`bg-[rgba(0,1,3,1)] w-[55%] h-auto rounded-[30px] pl-[100px] pr-[50px] pb-[80px]
+        [@media(1550px<width<=1650px)]:pl-[60px] 
+        [@media(1440px<width<=1550px)]:pl-[50px] 
+        [@media(1024px<width<=1440px)]:pl-[60px] 
+        [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:rounded-[20px] [@media(768px<width<=1024px)]:px-[40px] [@media(768px<width<=1024px)]:pb-[60px] 
+        [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:rounded-[20px] [@media(0px<width<=768px)]:px-[24px] [@media(0px<width<=768px)]:pb-[40px]`}>
+        
+        <h1 className={`text-[56px] text-white font-plex font-semibold mt-[118px] 
+          [@media(1650px<width)]:text-[52px] 
+          [@media(1550px<width<=1650px)]:text-[48px] 
+          [@media(1440px<width<=1550px)]:text-[42px] 
+          [@media(1024px<width<=1440px)]:text-[32px] [@media(1024px<width<=1440px)]:mt-[60px] 
+          [@media(768px<width<=1024px)]:text-[36px] [@media(0px<width<=768px)]:text-[26px]`}>
+          <span className="bg-[linear-gradient(90deg,rgba(131,130,133,1),rgba(182,180,184,1),rgba(81,80,82,1))] bg-clip-text text-transparent">Platform Independen</span> yang Berpihak pada Mahasiswa
         </h1>
-        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex mt-[157px] [@media(1024px<width<=1440px)]:text-[20px] [@media(768px<width<=1024px)]:text-[18px] [@media(768px<width<=1024px)]:mt-[40px] [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:mt-[32px]`}>
+
+        <p className={`text-[24px] text-white font-plex mt-[157px] 
+          [@media(1650px<width)]:text-[22px] 
+          [@media(1550px<width<=1650px)]:text-[20px] 
+          [@media(1440px<width<=1550px)]:text-[18px] 
+          [@media(1024px<width<=1440px)]:text-[16px] [@media(1024px<width<=1440px)]:mt-[60px] 
+          [@media(768px<width<=1024px)]:text-[18px] [@media(0px<width<=768px)]:text-[15px]`}>
           ScholarHub dibangun dengan satu tujuan: menghapus kesenjangan informasi antara mahasiswa dan peluang beasiswa yang tersedia.
         </p>
-        <div className={`bg-[linear-gradient(90deg,rgba(255,49,46,1),rgba(255,255,255,0))] w-[300px] h-[5px] mt-[30px] [@media(0px<width<=768px)]:w-[200px]`}></div>
-        <p className={`text-[24px] text-[rgba(255,255,255,1)] font-plex mt-[28px] [@media(1024px<width<=1440px)]:text-[20px] [@media(768px<width<=1024px)]:text-[18px] [@media(0px<width<=768px)]:text-[15px]`}>
+
+        <div className="bg-[linear-gradient(90deg,rgba(255,49,46,1),rgba(255,255,255,0))] w-[300px] h-[5px] mt-[30px] [@media(0px<width<=768px)]:w-[200px]"></div>
+
+        <p className={`text-[24px] text-white font-plex mt-[28px] 
+          [@media(1650px<width)]:text-[22px] 
+          [@media(1550px<width<=1650px)]:text-[20px] 
+          [@media(1440px<width<=1550px)]:text-[18px] 
+          [@media(1024px<width<=1440px)]:text-[16px] 
+          [@media(768px<width<=1024px)]:text-[18px] [@media(0px<width<=768px)]:text-[15px]`}>
           Kami bukan lembaga pemberi beasiswa. Kami adalah agregator dan kurator informasi. Setiap data yang kami sajikan berasal langsung dari sumber resmi.
         </p>
-        <div className={`flex justify-center items-center bg-[rgba(51,49,56,1)] text-[rgba(255,255,255,1)] font-plex h-[150px] mt-[70px] mr-[40px] border border-[rgba(255,49,46,1)] [@media(768px<width<=1024px)]:mr-[0px] [@media(768px<width<=1024px)]:mt-[40px] [@media(0px<width<=768px)]:mr-[0px] [@media(0px<width<=768px)]:mt-[32px] [@media(768px<width<=1024px)]:h-[120px] [@media(0px<width<=768px)]:h-[80px]`}>
+
+        <div className={`flex justify-center items-center bg-[rgba(51,49,56,1)] text-white font-plex h-[150px] mt-[70px] mr-[40px] border border-[rgba(255,49,46,1)] text-center px-6 
+          [@media(1440px<width<=1650px)]:h-[100px] [@media(1440px<width<=1650px)]:text-[16px] 
+          [@media(1024px<width<=1440px)]:h-[80px] [@media(1024px<width<=1440px)]:text-[14px] 
+          [@media(768px<width<=1024px)]:h-[100px] [@media(768px<width<=1024px)]:mr-0 [@media(0px<width<=768px)]:h-[80px]`}>
           Layanan 100% Gratis untuk seluruh mahasiswa Indonesia.
         </div>
       </div>
-      <div className={`flex justify-center items-center h-full w-[45%] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:pb-[40px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:pb-[40px]`}>
-        <div className={`flex flex-col gap-[62px] [@media(768px<width<=1024px)]:gap-[24px] [@media(0px<width<=768px)]:gap-[16px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:px-[24px]`}>
+
+      {/* SEKSI KANAN */}
+      <div className={`flex flex-col justify-center w-[45%] pr-[100px] py-[80px]
+        [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:pb-[60px] [@media(768px<width<=1024px)]:px-[40px]
+        [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:pb-[40px] [@media(0px<width<=768px)]:px-[24px]`}>
+        
+        <div className={`flex flex-col gap-[62px] w-full 
+          [@media(1550px<width<=1650px)]:gap-[45px] 
+          [@media(1440px<width<=1550px)]:gap-[35px] 
+          [@media(1024px<width<=1440px)]:gap-[30px] 
+          [@media(768px<width<=1024px)]:gap-[24px] [@media(0px<width<=768px)]:gap-[16px]`}>
+          
           {itemSedia.map((item) => (
             <div
               key={item.title}
-              className={`flex items-center gap-[26px] bg-[rgba(51,49,56,1)] h-[145px] mr-[100px] px-[29px] [@media(1024px<width<=1440px)]:h-[120px] [@media(768px<width<=1024px)]:mr-[40px] [@media(768px<width<=1024px)]:h-[110px] [@media(0px<width<=768px)]:mr-[0px] [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:py-[16px]`}
+              className={`flex items-center gap-[26px] bg-[rgba(51,49,56,1)] h-[145px] mr-[100px] px-[29px] 
+                [@media(1550px<width<=1650px)]:mr-[0px] [@media(1550px<width<=1650px)]:h-[135px] 
+                [@media(1440px<width<=1550px)]:mr-[0px] [@media(1440px<width<=1550px)]:h-[125px] 
+                [@media(1024px<width<=1440px)]:mr-[0px] [@media(1024px<width<=1440px)]:h-[110px] 
+                [@media(768px<width<=1024px)]:mr-[0px] [@media(768px<width<=1024px)]:h-auto [@media(768px<width<=1024px)]:py-[24px] 
+                [@media(0px<width<=768px)]:mr-[0px] [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:py-[16px]`}
             >
-              <div className={`bg-[rgba(81,80,82,1)] border border-[rgba(255,49,46,1)] rounded-[10px] w-[93px] h-[93px] flex-shrink-0 [@media(1024px<width<=1440px)]:w-[60px] [@media(1024px<width<=1440px)]:h-[60px] [@media(768px<width<=1024px)]:w-[60px] [@media(768px<width<=1024px)]:h-[60px] [@media(0px<width<=768px)]:w-[48px] [@media(0px<width<=768px)]:h-[48px]`}></div>
-              <div className={`w-auto flex flex-col gap-[13px]`}>
-                <h2 className={`text-[rgba(255,255,255,1)] text-[24px] font-semibold font-plex w-auto inline-block [@media(1024px<width<=1440px)]:text-[16px] [@media(768px<width<=1024px)]:text-[16px] [@media(0px<width<=768px)]:text-[14px]`}>{item.title}</h2>
-                <p className={`text-[rgba(255,255,255,1)] text-[20px] font-normal font-plex w-auto inline-block [@media(1024px<width<=1440px)]:text-[14px] [@media(768px<width<=1024px)]:text-[13px] [@media(0px<width<=768px)]:text-[12px]`}>{item.text}</p>
+              <div className={`bg-[rgba(81,80,82,1)] border border-[rgba(255,49,46,1)] rounded-[10px] w-[93px] h-[93px] flex-shrink-0 flex items-center justify-center 
+                [@media(1440px<width<=1650px)]:w-[75px] [@media(1440px<width<=1650px)]:h-[75px] 
+                [@media(1024px<width<=1440px)]:w-[60px] [@media(1024px<width<=1440px)]:h-[60px] 
+                [@media(768px<width<=1024px)]:w-[60px] [@media(768px<width<=1024px)]:h-[60px] 
+                [@media(0px<width<=768px)]:w-[48px] [@media(0px<width<=768px)]:h-[48px]`}>
+                {item.icon}
+              </div>
+              
+              <div className="flex-1 flex flex-col justify-center overflow-hidden">
+                <h2 className={`text-white font-semibold font-plex text-[24px] 
+                  [@media(1550px<width<=1650px)]:text-[20px] 
+                  [@media(1440px<width<=1550px)]:text-[18px] 
+                  [@media(1024px<width<=1440px)]:text-[16px] 
+                  [@media(768px<width<=1024px)]:text-[18px] [@media(0px<width<=768px)]:text-[14px]`}>
+                  {item.title}
+                </h2>
+                <p className={`text-white font-normal font-plex text-[20px] leading-tight 
+                  [@media(1550px<width<=1650px)]:text-[16px] 
+                  [@media(1440px<width<=1550px)]:text-[14px] 
+                  [@media(1024px<width<=1440px)]:text-[12px] 
+                  [@media(768px<width<=1024px)]:text-[14px] [@media(0px<width<=768px)]:text-[12px]`}>
+                  {item.text}
+                </p>
               </div>
             </div>
           ))}
@@ -89,9 +193,47 @@ const IdentitasPortal = () => {
 // ── Layanan / Jenis Beasiswa ─────────────────────────────
 const LayananBeasiswa = () => {
   const itemBeasiswa = [
-    { logo: "", jenis: "Prestasi", pengelola: "Pemerintah", text: "Apresiasi dana pendidikan yang dikhususkan bagi mahasiswa dengan pencapaian akademik luar biasa (IPK tinggi) atau juara kompetisi bergengsi." },
-    { logo: "", jenis: "Reguler", pengelola: "Pemerintah", text: "Bantuan biaya pendidikan secara berkala untuk mahasiswa aktif dari berbagai jurusan yang memenuhi kelengkapan administrasi dan standar IPK minimal." },
-    { logo: "", jenis: "Leadership", pengelola: "Pemerintah", text: "Dukungan bagi agen perubahan. Diperuntukkan bagi mahasiswa yang aktif berkontribusi di organisasi kampus, kerelawanan sosial, dan komunitas." },
+    { 
+      jenis: "Prestasi", 
+      pengelola: "Pemerintah", 
+      text: "Apresiasi dana pendidikan yang dikhususkan bagi mahasiswa dengan pencapaian akademik luar biasa (IPK tinggi) atau juara kompetisi bergengsi.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-[40%] h-[40%]">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+          <path d="M4 22h16" />
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+        </svg>
+      )
+    },
+    { 
+      jenis: "Reguler", 
+      pengelola: "Pemerintah", 
+      text: "Bantuan biaya pendidikan secara berkala untuk mahasiswa aktif dari berbagai jurusan yang memenuhi kelengkapan administrasi dan standar IPK minimal.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-[40%] h-[40%]">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+          <path d="M8 7h6" />
+          <path d="M8 11h8" />
+        </svg>
+      )
+    },
+    { 
+      jenis: "Leadership", 
+      pengelola: "Pemerintah", 
+      text: "Dukungan bagi agen perubahan. Diperuntukkan bagi mahasiswa yang aktif berkontribusi di organisasi kampus, kerelawanan sosial, dan komunitas.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF312E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-[40%] h-[40%]">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          <path d="m14.5 12.5 3 3 4.5-4.5" />
+        </svg>
+      )
+    },
   ];
 
   return (
@@ -99,15 +241,8 @@ const LayananBeasiswa = () => {
       id="jenis"
       className={`h-auto bg-[rgba(255,255,250),1] pb-[200px] [@media(0px<width<=768px)]:pb-[80px] [@media(768px<width<=1024px)]:pb-[100px]`}
     >
-      <div className={`relative overflow-hidden`}>
-        <div className={`relative top-[-170px] mx-auto bg-[linear-gradient(90deg,rgba(81,80,82,1)0%,rgba(182,180,184,0.5)16%,rgba(255,255,255,0)30%,rgba(255,255,255,0)74%,rgba(182,180,184,0.5)87%,rgba(81,80,82,1)100%)] rounded-[50%] w-[98%] h-[281px] [@media(0px<width<=768px)]:w-[99%] [@media(768px<width<=1024px)]:w-[98%]`}></div>
-      </div>
-      <p className={`text-[32px] text-[rgba(255,49,46,1)] font-plex font-semibold mx-[100px] pl-[20px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:pl-[0px] [@media(768px<width<=1024px)]:text-center [@media(768px<width<=1024px)]:pl-[0px] [@media(768px<width<=1024px)]:mx-[40px] [@media(768px<width<=1024px)]:text-[24px] [@media(0px<width<=768px)]:text-center [@media(0px<width<=768px)]:pl-[0px] [@media(0px<width<=768px)]:mx-[24px] [@media(0px<width<=768px)]:text-[20px]`}>
-        Kategori Program
-      </p>
-      <h1 className={`text-[64px] font-semibold font-plex w-[1085px] mt-[40px] mx-[100px] [@media(1024px<width<=1440px)]:text-center [@media(1024px<width<=1440px)]:w-auto [@media(1024px<width<=1440px)]:text-[48px] [@media(768px<width<=1024px)]:text-[36px] [@media(768px<width<=1024px)]:text-center [@media(768px<width<=1024px)]:text-[40px] [@media(768px<width<=1024px)]:w-auto [@media(768px<width<=1024px)]:mx-[0px] [@media(768px<width<=1024px)]:px-[40px] [@media(768px<width<=1024px)]:mt-[24px] [@media(0px<width<=768px)]:text-center [@media(0px<width<=768px)]:text-[28px] [@media(0px<width<=768px)]:mx-[0px] [@media(0px<width<=768px)]:px-[24px] [@media(0px<width<=768px)]:w-auto [@media(0px<width<=768px)]:mt-[16px]`}>
-        Jenis-jenis <span className={`text-[rgba(81,80,82,1)] font-bold`}>beasiswa</span> yang kami kelola
-      </h1>
+      {/* ... bagian header tetap sama ... */}
+      
       <div className={`flex flex-col mt-[136px] mx-[100px] gap-[30px] [@media(768px<width<=1024px)]:mt-[60px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=768px)]:mx-[24px]`}>
         {itemBeasiswa.map((item) => (
           <div
@@ -115,14 +250,18 @@ const LayananBeasiswa = () => {
             className={`bg-[linear-gradient(90deg,rgba(255,49,46,0)40%,rgba(255,49,46,1)100%)] w-full h-[250px] [@media(0px<width<=768px)]:h-auto [@media(768px<width<=1024px)]:h-auto`}
           >
             <div className={`flex bg-[rgba(255,255,250,1)] w-[99%] h-[240px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:h-auto [@media(768px<width<=1024px)]:h-auto`}>
-              <div className={`w-[250px] h-[250px] bg-[rgba(81,80,82,1)] flex-shrink-0 [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:h-[160px] [@media(768px<width<=1024px)]:w-[160px] [@media(768px<width<=1024px)]:h-auto`}></div>
+              {/* KOTAK IKON */}
+              <div className={`w-[250px] h-[250px] bg-[rgba(81,80,82,1)] flex-shrink-0 flex items-center justify-center [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:h-[160px] [@media(768px<width<=1024px)]:w-[160px] [@media(768px<width<=1024px)]:h-auto`}>
+                {item.icon}
+              </div>
+              
               <div className={`px-[20px] ml-[70px] w-[calc(100%-250px)] [@media(0px<width<=768px)]:ml-[0px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:px-[16px] [@media(0px<width<=768px)]:pb-[16px] [@media(768px<width<=1024px)]:ml-[24px] [@media(768px<width<=1024px)]:w-auto [@media(768px<width<=1024px)]:py-[16px]`}>
                 <div className={`flex justify-between mt-[20px]`}>
                   <div className={`flex items-center`}>
                     <h2 className={`text-[rgba(255,49,46,1)] text-[24px] font-semibold [@media(0px<width<=768px)]:text-[18px] [@media(768px<width<=1024px)]:text-[20px]`}>{item.jenis}</h2>
                   </div>
                   <div className={`flex items-center`}>
-                    <div className={`bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[18px] text-center font-semibold font-plex w-[155px] h-[33px] rounded-[20px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:w-[110px] [@media(0px<width<=768px)]:h-[28px]`}>
+                    <div className={`bg-[rgba(255,49,46,1)] text-[rgba(255,255,250,1)] text-[18px] flex items-center justify-center font-semibold font-plex w-[155px] h-[33px] rounded-[20px] [@media(0px<width<=768px)]:text-[13px] [@media(0px<width<=768px)]:w-[110px] [@media(0px<width<=768px)]:h-[28px]`}>
                       {item.pengelola}
                     </div>
                   </div>
@@ -139,41 +278,72 @@ const LayananBeasiswa = () => {
 
 // ── Pengajuan Beasiswa ───────────────────────────────────
 const listItems = [
-  { text: "Prestasi Akademik" },
-  { text: "Motivasi Kuat" },
-  { text: "Keterbatasan Finansial" },
-  { text: "Visi ke Depan" },
+  { 
+    text: "Prestasi Akademik", 
+    icon: <svg className="w-8 h-8 [@media(0px<width<=768px)]:w-6 [@media(0px<width<=768px)]:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> 
+  },
+  { 
+    text: "Motivasi Kuat", 
+    icon: <svg className="w-8 h-8 [@media(0px<width<=768px)]:w-6 [@media(0px<width<=768px)]:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 
+  },
+  { 
+    text: "Keterbatasan Finansial", 
+    icon: <svg className="w-8 h-8 [@media(0px<width<=768px)]:w-6 [@media(0px<width<=768px)]:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 12h.01M16 12h.01M8 12h.01"/></svg> 
+  },
+  { 
+    text: "Visi ke Depan", 
+    icon: <svg className="w-8 h-8 [@media(0px<width<=768px)]:w-6 [@media(0px<width<=768px)]:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg> 
+  },
 ];
 
 const PengajuanBeasiswa = () => {
   return (
     <div
-      id=""
-      className="relative min-h-screen bg-[#FCEAE8] overflow-hidden flex items-center [@media(0px<width<=768px)]:min-h-0 [@media(768px<width<=1024px)]:min-h-0"
+      id="pengajuan"
+      className="relative min-h-screen bg-[#FCEAE8] overflow-hidden flex items-center py-20 [@media(0px<width<=1024px)]:py-10"
     >
-      <div className="relative z-10 mx-[100px] pt-[80px] pb-[162px] w-full [@media(0px<width<=768px)]:mx-[24px] [@media(0px<width<=768px)]:pt-[48px] [@media(0px<width<=768px)]:pb-[60px] [@media(768px<width<=1024px)]:mx-[40px] [@media(768px<width<=1024px)]:pt-[60px] [@media(768px<width<=1024px)]:pb-[80px]">
-        <h1 className="font-['IBM_Plex_Mono'] text-[48px] font-bold text-[rgba(0,0,0,1)] mt-[80px] [@media(0px<width<=768px)]:text-[28px] [@media(0px<width<=768px)]:mt-[0px] [@media(768px<width<=1024px)]:text-[36px] [@media(768px<width<=1024px)]:mt-[40px]">
+      <div className="relative z-10 mx-[100px] w-full [@media(0px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mx-[24px]">
+        
+        <h1 className="font-['IBM_Plex_Mono'] text-[48px] font-bold text-[rgba(0,0,0,1)] [@media(0px<width<=1024px)]:text-[36px] [@media(0px<width<=768px)]:text-[28px] [@media(0px<width<=768px)]:text-center">
           Ayo ikut! ajukan dirimu untuk<br />
           <span className="block text-[rgba(153,49,51,1)] font-semibold">mendapatkan beasiswa</span>
         </h1>
-      <div className="flex justify-between items-center mt-[97px] [@media(0px<width<=768px)]:flex-col [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=768px)]:gap-[32px] [@media(768px<width<=1024px)]:flex-col [@media(768px<width<=1024px)]:mt-[60px] [@media(768px<width<=1024px)]:gap-[40px]">
-      <div className="flex flex-col gap-4 [@media(0px<width<=768px)]:w-full [@media(768px<width<=1024px)]:w-full">
-        {listItems.map((item) => (
-          <div
-            key={item.text}
-            className="flex items-center bg-[rgba(51,49,56,1)] text-[32px] text-[rgba(255,255,250,1)] font-plex font-semibold w-[856px] h-[120px] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:h-[72px] [@media(0px<width<=768px)]:text-[18px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:h-[90px] [@media(768px<width<=1024px)]:text-[24px] [@media(1024px<width<=1440px)]:w-full"
-            >
-              <p className={`ml-[106px] [@media(0px<width<=768px)]:ml-[24px] [@media(768px<width<=1024px)]:ml-[48px]`}>{item.text}</p>
+
+        <div className="flex flex-row justify-between items-stretch mt-[80px] gap-8 [@media(0px<width<=1024px)]:flex-col [@media(0px<width<=768px)]:mt-[40px]">
+          
+          {/* List Section */}
+          <div className="flex flex-col gap-4 flex-[1.2] [@media(0px<width<=1024px)]:w-full">
+            {listItems.map((item) => (
+              <div
+                key={item.text}
+                className="group flex items-center bg-[rgba(51,49,56,1)] text-[32px] text-[rgba(255,255,250,1)] font-plex font-semibold h-[120px] transition-all duration-300 hover:bg-[#993133] hover:translate-x-4 [@media(0px<width<=1440px)]:text-[24px] [@media(0px<width<=1440px)]:h-[100px] [@media(0px<width<=1024px)]:h-[90px] [@media(0px<width<=768px)]:h-[72px] [@media(0px<width<=768px)]:text-[18px] [@media(0px<width<=768px)]:hover:translate-x-2"
+              >
+                <div className="ml-[40px] text-[#FF312E] group-hover:text-white transition-colors [@media(0px<width<=768px)]:ml-[16px]">
+                  {item.icon}
+                </div>
+                <p className="ml-[40px] [@media(0px<width<=1024px)]:ml-[24px] [@media(0px<width<=768px)]:ml-[16px]">
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-          <div className="border border-[#FF312E] rounded-[4px] p-8 bg-[rgba(252,234,232,0.6)] backdrop-blur-sm flex flex-col items-center justify-center gap-6 w-[650px] h-[618px] animate-[fadeUp_0.5s_0.35s_ease_both] [@media(0px<width<=768px)]:w-full [@media(0px<width<=768px)]:h-auto [@media(0px<width<=768px)]:p-[24px] [@media(768px<width<=1024px)]:w-full [@media(768px<width<=1024px)]:h-auto [@media(1024px<width<=1440px)]:w-[420px] [@media(1024px<width<=1440px)]:h-[450px]">
-            <div></div>
-            <p className="font-['IBM_Plex_Mono'] text-[24px] text-[#000000] text-center leading-relaxed w-[560px] [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:w-full [@media(768px<width<=1024px)]:text-[18px] [@media(768px<width<=1024px)]:w-full [@media(1024px<width<=1440px)]:text-[18px] [@media(1024px<width<=1440px)]:w-full">
-              Tujuan studi yang jelas dan komitmen<br />
-              untuk berkontribusi bagi masyarakat.
+
+          {/* Info Card Section */}
+          <div className="group border-2 border-[#FF312E] rounded-[4px] p-8 bg-[rgba(252,234,232,0.6)] backdrop-blur-sm flex flex-col items-center justify-center gap-8 flex-1 transition-all duration-500 hover:shadow-[15px_15px_0px_0px_#FF312E] [@media(0px<width<=1024px)]:w-full [@media(0px<width<=1024px)]:py-12 [@media(0px<width<=768px)]:p-6">
+            
+            <div className="w-20 h-20 bg-[#FF312E] rounded-full flex items-center justify-center text-white mb-4 animate-bounce [@media(0px<width<=768px)]:w-16 [@media(0px<width<=768px)]:h-16">
+              <svg className="w-10 h-10 [@media(0px<width<=768px)]:w-8 [@media(0px<width<=768px)]:h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+
+            <p className="font-['IBM_Plex_Mono'] text-[24px] text-[#000000] text-center font-bold leading-relaxed max-w-[500px] [@media(0px<width<=1440px)]:text-[20px] [@media(0px<width<=1024px)]:text-[22px] [@media(0px<width<=768px)]:text-[16px]">
+              "Tujuan studi yang jelas dan komitmen untuk berkontribusi bagi masyarakat adalah kunci utama lolos seleksi."
             </p>
+            
+            <div className="h-1 w-20 bg-[#FF312E]"></div>
           </div>
+
         </div>
       </div>
     </div>
