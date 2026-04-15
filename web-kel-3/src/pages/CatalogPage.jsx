@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const CatalogPage = () => {
+const CatalogPage = ({isLogim, setIsLogin, user, setUser}) => {
     const navigate = useNavigate();
     const [isClicked, setIsClicked] = useState(false);
     const [filter, setFilter] = useState("");
@@ -84,7 +84,7 @@ const CatalogPage = () => {
                         {/* Isi Card */}
                         <div className={`mt-[113px] px-[23px] [@media(0px<width<=768px)]:mt-[40px] [@media(0px<width<=768px)]:px-[14px] [@media(768px<width<=1024px)]:mt-[60px]`}>
                             <h1
-                                onClick={() => handleClick(proposal.id)}
+                                onClick={() => handleClick({id : proposal.id, nama : user?.nama})}
                                 className={`text-[rgba(0,0,0,1)] text-[16px] font-plex font-bold cursor-pointer [@media(0px<width<=768px)]:text-[13px]`}>
                                 {proposal.deskripsi}
                             </h1>

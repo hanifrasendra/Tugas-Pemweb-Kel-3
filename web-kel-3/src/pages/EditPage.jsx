@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const EditPage = () => {
+const EditPage = ({isLogin, setIsLogin}) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [dataProposal, setDataProposal] = useState({
         status: "",
         data: {}
     });
+
+    useEffect(() => {
+        if (!isLogin) {
+            navigate("/login");
+        }
+    }, [isLogin]);
 
     // Style Helper yang konsisten dengan TambahProposal
     const labelStyle = "text-[16px] font-plex font-bold text-[#333] mb-2 block";

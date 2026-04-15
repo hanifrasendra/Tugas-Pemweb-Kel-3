@@ -1,9 +1,21 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
-const TambahProposal = () => {
+const TambahProposal = ({isLogin,setIsLogin,user,setIsUser}) => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!isLogin) {
+            navigate("/login")
+        }
+    }, [isLogin])
+
     const handleSubmit = async () => {
         const fields = ["nama", "deskripsi", "universitas", "prodi", "semester", "ipk", "ukt", "tipe-beasiswa"];
         const values = {};
+
+        
         
         let isValid = true;
         fields.forEach(field => {
@@ -67,8 +79,9 @@ const TambahProposal = () => {
                         
                         {/* Nama */}
                         <div className="col-span-1">
-                            <label className={labelStyle}>Nama Lengkap</label>
-                            <input id="nama" type="text" placeholder="Masukkan nama sesuai KTP" className={inputStyle} />
+                            <h1>{user?.nama}</h1>
+                            <label className={`labelStyle hidden`}>Nama Lengkap</label>
+                            <input id="nama" type="text" value={user?.nama} placeholder="Masukkan nama sesuai KTP" className={`inputStyle hidden`} />
                         </div>
 
                         {/* Tipe Beasiswa */}

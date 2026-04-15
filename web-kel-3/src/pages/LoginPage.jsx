@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
     const navigate = useNavigate();
 
+    
+
     const handleSubmit = async () => {
         const email = document.getElementById("email").value;
         const pass = document.getElementById("password").value;

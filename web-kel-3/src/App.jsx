@@ -29,8 +29,8 @@ function App() {
           <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser} />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/tambah" element={<TambahProposal />} />
-          <Route path="/edit/:id" element={<EditPage />} />
+          <Route path="/tambah" element={<TambahProposal isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/>} />
+          <Route path="/edit/:id" element={<EditPage isLogin={isLogin} setIsLogin={setIsLogin}/>} />
         </Routes>
     </BrowserRouter>
   )
