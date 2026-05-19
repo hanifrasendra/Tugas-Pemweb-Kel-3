@@ -13,7 +13,7 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
         const dataLogin = { email, password: pass };
 
         try {
-            const response = await fetch("https://web-kel-3-backend.vercel.app/api/login.php", {
+            const response = await fetch("http://localhost/web-kel-3/api/login.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -21,7 +21,7 @@ const EditPage = ({isLogin, setIsLogin}) => {
 
     const fetchData = async () => {
         try {
-            const getData = await fetch(`https://web-kel-3-backend.vercel.app/api/getData.php?id=${id}`);
+            const getData = await fetch(`http://localhost/web-kel-3/api/getData.php?id=${id}`);
             const data = await getData.json();
             setDataProposal(data);
         } catch (error) {
