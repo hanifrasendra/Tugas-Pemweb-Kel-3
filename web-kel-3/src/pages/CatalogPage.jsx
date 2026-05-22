@@ -13,7 +13,7 @@ const CatalogPage = ({isLogim, setIsLogin, user, setUser}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const getData = await fetch(`http://localhost/web-kel-3/api/catalog.php?filter=${filter}`);
+                const getData = await fetch(`http://localhost:8000/api/catalogs`);
                 const data = await getData.json();
                 setDataProposal(data);
             } catch(error) {
