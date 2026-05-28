@@ -37,7 +37,7 @@ Tugas-Pemweb-Kel-3/
 
 ```bash
 cd web-kel-3
-npm install
+npm install //tidak perlu karna sudah ada di project. kalo belum boleh dijalankan baris ini
 npm run dev
 ```
 
@@ -49,8 +49,7 @@ Berjalan di **http://localhost:5173**
 
 ```bash
 cd backend
-composer install
-php artisan key:generate
+composer install 
 php artisan migrate
 php artisan serve
 ```
