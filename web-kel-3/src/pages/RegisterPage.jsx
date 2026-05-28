@@ -1,4 +1,4 @@
-const RegisterPage = () => {
+const RegisterPage = ({isLogin, setIsLogin, user, setUser}) => {
 
     const handleSubmit = async () => {
         const nama = document.getElementById("nama").value;
@@ -11,7 +11,7 @@ const RegisterPage = () => {
             return;
         }
 
-        const getUser = await fetch("https://web-kel-3-backend.vercel.app/api/getUsers.php")
+        const getUser = await fetch("http://localhost/web-kel-3/api/getUsers.php")
         const user = await getUser.json();
 
         const existingUser = user.data.find(u => u.email === email);
@@ -27,7 +27,7 @@ const RegisterPage = () => {
             const dataLogin = { nama, email, password: pass };
 
             try {
-                const response = await fetch("https://web-kel-3-backend.vercel.app/api/register.php", {
+                const response = await fetch("http://localhost/web-kel-3/api/register.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(dataLogin)
@@ -37,6 +37,8 @@ const RegisterPage = () => {
 
                 if (data.status === "success") {
                     alert("registrasi berhasil!");
+                    localStorage.setItem("isLogin", data.isLogin);
+                    localStorage.setItem("user", JSON.stringify(data.user));
                     window.location.href = "/home";
                 } else {
                     alert(data.message);

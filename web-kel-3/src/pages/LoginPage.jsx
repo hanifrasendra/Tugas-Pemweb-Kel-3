@@ -91,8 +91,20 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
                             Login
                         </h1>
 
+                        {/* Regis session */}
+                        <div className="w-full mt-[10px]">
+                            <p className="text-gray-500 text-left">
+                                Don't have an account?{" "}
+                                <a
+                                onClick={() => navigate("/register")} 
+                                className="text-[rgba(255,49,46,1)] cursor-pointer hover:underline">
+                                    Register here
+                                </a>
+                            </p>
+                        </div>
+
                         {/* INPUT */}
-                        <div className="mt-[60px] w-full">
+                        <div className="mt-[40px] w-full">
                             <label className="font-plex">Email</label>
                             <input 
                                 type="email" 
@@ -123,6 +135,15 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
                         >
                             Login
                         </button>
+
+                        {/* forgot session */}
+                        <div className="flex w-full mt-[10px] justify-end">
+                            <a 
+                            
+                            className="text-[rgba(255,49,46,1)] hover:underline">
+                                Forgot your password?
+                            </a>
+                        </div>
 
                         {/* OR */}
                         <div className="flex my-[30px] w-full items-center">

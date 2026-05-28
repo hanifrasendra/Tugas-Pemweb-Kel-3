@@ -108,22 +108,10 @@ const mockScholarships = [
 ];
 
 // ─── Countdown Component ─────────────────────────────────
-const Countdown = ({ deadline }) => {
+const Countdown = ({ isLogin, set }) => {
   const [timeLeft, setTimeLeft] = useState({});
 
-  useEffect(() => {
-    const calc = () => {
-      const diff = deadline - Date.now();
-      if (diff <= 0) return setTimeLeft({ expired: true });
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      setTimeLeft({ days, hours, mins });
-    };
-    calc();
-    const interval = setInterval(calc, 60000);
-    return () => clearInterval(interval);
-  }, [deadline]);
+  
 
   if (timeLeft.expired) return <span className="text-red-400 font-bold text-xs">⚠ Expired</span>;
 
@@ -139,44 +127,30 @@ const Countdown = ({ deadline }) => {
 };
 
 // ─── Scholarship Card ────────────────────────────────────
-const ScholarshipCard = ({ scholarship, onSave, onApply }) => {
+const ScholarshipCard = ({ scholarship, onSave, onApply, navigate }) => {
   const formatNominal = (n) => {
     if (n >= 1000000) return `Rp ${(n / 1000000).toFixed(0)} Jt`;
     return `Rp ${n.toLocaleString("id-ID")}`;
   };
 
+
+
   return (
     <div
-      className="group relative bg-white rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(255,49,46,0.08)] border border-[#FF312E]/8 hover:shadow-[0_16px_48px_rgba(255,49,46,0.2)] hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+      className="group relative bg-white rounded-[10px] overflow-hidden border border-[#FF312E]/8 hover:-translate-y-2 transition-all duration-500 cursor-pointer"
       style={{ willChange: "transform" }}
     >
       {/* Top gradient strip */}
-      <div className={`h-[6px] w-full bg-gradient-to-r ${scholarship.color}`} />
+      
 
       {/* Card Header */}
       <div className="p-5 pb-0">
         <div className="flex items-start justify-between">
-          <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${scholarship.color} flex items-center justify-center text-xl shadow-lg`}>
+          <div className={`w-12 h-12 rounded-icon bg-brand-charcoal border border-brand-red flex items-center justify-center text-xl`}>
             {scholarship.icon}
           </div>
-          <div className="flex items-center gap-2">
-            {scholarship.trending && (
-              <span className="flex items-center gap-1 bg-amber-50 text-amber-600 text-[10px] font-bold px-2 py-1 rounded-full border border-amber-200">
-                🔥 Trending
-              </span>
-            )}
-            <button
-              onClick={(e) => { e.stopPropagation(); onSave(scholarship.id); }}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                scholarship.saved
-                  ? "bg-[#FF312E]/15 text-[#FF312E]"
-                  : "bg-gray-100 text-gray-400 hover:bg-[#FF312E]/8 hover:text-[#FF312E]"
-              }`}
-            >
-              <svg viewBox="0 0 24 24" fill={scholarship.saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg>
-            </button>
+          <div className={`flex items-center justify-center bg-label-cat p-label rounded-label text-(length:--text-label) font-bold font-plex`}>
+            <span className={`text-surface`}>{scholarship.type}</span>
           </div>
         </div>
 
@@ -213,8 +187,8 @@ const ScholarshipCard = ({ scholarship, onSave, onApply }) => {
       <div className="px-5 mt-4 pb-5 flex items-center justify-between">
         <Countdown deadline={scholarship.deadline} />
         <button
-          onClick={() => onApply(scholarship.id)}
-          className="bg-gradient-to-r from-[#993133] to-[#FF312E] hover:from-[#7a2527] hover:to-[#993133] text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(255,49,46,0.35)] hover:shadow-[0_6px_20px_rgba(255,49,46,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 font-plex"
+          onClick={() => navigate('/post-proposal')}
+          className="bg-gradient-to-r from-[#993133] to-[#FF312E] hover:from-[#7a2527] hover:to-[#993133] text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(255,49,46,0.35)] hover:shadow-[0_6px_20px_rgba(255,49,46,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 font-plex cursor-pointer"
         >
           Ajukan →
         </button>
@@ -232,14 +206,10 @@ const FilterSheet = ({ isOpen, onClose, filters, setFilters }) => {
 
   return (
     <>
-      {/* Overlay */}
-      <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        onClick={onClose}
-      />
+      
       {/* Sheet */}
       <div
-        className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 transition-transform duration-500 ease-out shadow-[0_-20px_60px_rgba(0,0,0,0.2)] max-h-[85vh] overflow-y-auto ${
+        className={`bg-white  z-50 transition-transform duration-500 ease-out mb-5 max-h-[85vh] overflow-y-auto ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
@@ -467,18 +437,9 @@ const ExplorePage = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 [@media(min-width:768px)]:px-8 [@media(min-width:1024px)]:px-16">
         {/* Header */}
         <div className="pt-28 pb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#993133] to-[#FF312E] flex items-center justify-center shadow-lg">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="w-4 h-4">
-                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-              </svg>
-            </div>
-            <p className="text-[#FF312E] text-sm font-plex font-semibold">Eksplorasi Beasiswa</p>
-          </div>
           <h1 className="text-3xl [@media(min-width:768px)]:text-4xl font-bold font-plex text-gray-900 leading-tight">
             Temukan <span className="bg-gradient-to-r from-[#993133] to-[#FF312E] bg-clip-text text-transparent">Beasiswamu</span>
           </h1>
-          <p className="text-gray-400 text-sm mt-2 font-plex">{scholarships.length} beasiswa tersedia untuk kamu</p>
         </div>
 
         {/* Search Bar */}
@@ -493,21 +454,34 @@ const ExplorePage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari beasiswa atau penyelenggara..."
-            className="w-full bg-white border border-[#FF312E]/15 rounded-2xl pl-12 pr-16 py-4 text-gray-800 placeholder-gray-400 font-plex text-sm focus:outline-none focus:ring-2 focus:ring-[#FF312E]/60 focus:border-transparent shadow-[0_4px_24px_rgba(255,49,46,0.08)] transition-all duration-300"
+            className="w-full bg-white rounded-2xl pl-12 pr-16 py-4 text-gray-800 placeholder-gray-400 font-plex text-sm focus:outline-none focus:border-transparent shadow-[0_4px_24px_rgba(255,49,46,0.08)] transition-all duration-300"
           />
-          {search && (
-            <button
-              onClick={() => setSearch("")}
-              className="absolute right-14 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                <path d="M18 6 6 18M6 6l12 12" />
-              </svg>
-            </button>
-          )}
+          
+        </div>
+
+        {/* Category Chips */}
+        <div className="relative flex justify-between">
+          <div>
+            <div className="flex gap-2 overflow-x-auto pb-2 px-1 mb-6 scrollbar-hide">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`shrink-0 px-5 py-2.5 rounded-[10px] text-sm font-bold font-plex transition-all duration-300 cursor-pointer ${
+                    activeCategory === cat
+                      ? "bg-brand-red text-white shadow-lg shadow-[#FF312E]/20 scale-105"
+                      : "bg-white text-gray-500 hover:bg-[#FF312E]/8 hover:text-[#FF312E] border border-gray-100"
+                  }`}
+                >
+                  {cat === "Saved" ? "💾 Tersimpan" : cat}
+                </button>
+              ))}
+            </div>
+            <div className={`bg-[#515052] h-0.5 w-full`}></div>
+          </div>
           <button
-            onClick={() => setIsFilterOpen(true)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-gradient-to-br from-[#993133] to-[#FF312E] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="w-9 h-9 bg-gradient-to-br from-[#993133] to-[#FF312E] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="w-4 h-4">
               <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
@@ -518,24 +492,18 @@ const ExplorePage = () => {
               </span>
             )}
           </button>
+          
         </div>
 
-        {/* Category Chips */}
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-bold font-plex transition-all duration-300 ${
-                activeCategory === cat
-                  ? "bg-gradient-to-r from-[#993133] to-[#FF312E] text-white shadow-lg shadow-[#FF312E]/20 scale-105"
-                  : "bg-white text-gray-500 hover:bg-[#FF312E]/8 hover:text-[#FF312E] border border-gray-100"
-              }`}
-            >
-              {cat === "Saved" ? "💾 Tersimpan" : cat}
-            </button>
-          ))}
-        </div>
+        {/* Filter Sheet */}
+        {isFilterOpen && (
+            <FilterSheet
+              isOpen={isFilterOpen}
+              onClose={() => setIsFilterOpen(false)}
+              filters={filters}
+              setFilters={setFilters}
+            />
+        )}
 
         {/* Sort + Count Row */}
         <div className="flex items-center justify-between mb-5">
@@ -581,7 +549,7 @@ const ExplorePage = () => {
             />
           ) : (
             sorted.map((s) => (
-              <ScholarshipCard key={s.id} scholarship={s} onSave={handleSave} onApply={handleApply} />
+              <ScholarshipCard key={s.id} scholarship={s} onSave={handleSave} onApply={handleApply} navigate={navigate} />
             ))
           )}
         </div>
@@ -605,12 +573,7 @@ const ExplorePage = () => {
       </div>
 
       {/* Filter Sheet */}
-      <FilterSheet
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      
     </div>
   );
 };

@@ -2,22 +2,57 @@
 
 @theme {
   --font-plex: "IBM Plex Mono", monospace;
-  /* main color pallete */
-  --color-button: rgba(255,49,46,1);
-  --color-tirtiery: rgba(255,49,46,1);
-  /* secondary color pallete*/
-  /* Warna Dasar (Secondary) */
-  --color-secondary: rgba(47, 128, 79, 1);       /* Hijau Utama */
+
+  /* ==========================================================================
+     1. GLOBAL COLOR TOKENS
+     ========================================================================== */
+  --color-brand-black: #000103;
+  --color-brand-purple: #993133;
+  --color-brand-red: #FF312E;
+  --color-brand-light: #FFFFFA;
+  --color-brand-charcoal: #333138;
+  --color-brand-gray: #515052;
+
+  /* ==========================================================================
+     2. COMPONENT THEME UTILITIES
+     ========================================================================== */
+  /* Card Themes */
+  --color-card-bg: var(--color-brand-light);
+  --color-card-title: var(--color-brand-black);
+  --color-card-text: var(--color-brand-gray);
   
-  /* Variasi Palet */ 
-  --color-secondary-light: rgba(76, 175, 115, 1); /* Hijau Cerah */
-  --color-secondary-dark: rgba(30, 85, 52, 1);    /* Hijau Gelap */
-  --color-secondary-soft: rgba(232, 245, 238, 1); /* Background Hijau Sangat Muda */
-  
+  /* Button Themes & Hover States */
+  --color-btn-bg: var(--color-brand-black);
+  --color-btn-text: var(--color-brand-light);
+  --color-btn-hover-bg: var(--color-brand-purple);
+
+  /* Label / Badge Themes */
+  --color-label-hot-bg: var(--color-brand-red);
+  --color-label-new-bg: var(--color-brand-purple);
+  --color-label-text: var(--color-brand-light);
+  --color-label-cat: var(--color-brand-red);
   /* Warna Aksen Pendukung */
   --color-primary: rgba(33, 37, 41, 1);           /* Hitam/Abu Tua untuk teks */
   --color-accent: rgba(255, 193, 7, 1);           /* Kuning/Emas untuk kontras (Opsional) */
-  --color-surface: rgba(255, 255, 255, 1);        /* Putih Bersih */
+  --color-surface: var(--color-brand-light);        /* Putih Bersih */
+
+  /* ==========================================================================
+  3. FONTS
+  ========================================================================== */
+  /* profile */
+  --text-profile-text: 1.25rem;
+
+  /* card */
+  --padding-label: 0.25rem 1rem;
+  --text-label: 0.75rem;
+
+  /* ==========================================================================
+  4. ROUNDED
+  ========================================================================== */
+
+  /* card */
+  --radius-label: 20px;
+  --radius-icon: 10px;
 }
 
 :root {

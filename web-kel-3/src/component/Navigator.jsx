@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
 const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const handleLogout = () => {
         alert("Anda telah logout!");
@@ -19,7 +21,7 @@ const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
     return (
         <div className="sticky top-0 w-full bg-white/90 backdrop-blur-sm shadow-[0px_2px_4px_0px_rgba(0,0,0,0.1)] z-[100]">
             <div className="m-auto">
-                <div className="flex items-center h-[100px] mx-[100px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mx-[24px] [@media(0px<width<=768px)]:h-[72px]">
+                <div className="relative flex items-center h-[100px] mx-[100px] [@media(768px<width<=1024px)]:mx-[40px] [@media(0px<width<=768px)]:mx-[24px] [@media(0px<width<=768px)]:h-[72px]">
                     <nav className="flex justify-between items-center w-full">
 
                         {/* Logo */}
@@ -62,17 +64,24 @@ const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
                             {isLogin ? (
                                 <div className="flex items-center gap-[15px]">
                                     <div className="hidden [@media(1100px<width)]:block">
-                                        <p className="text-[14px] font-plex text-right leading-tight">
-                                            Halo, <br />
-                                            <span className="font-bold font-plex">{user?.nama}</span>
-                                        </p>
+                                        <div className={`flex items-center justify-center w-11 h-11 bg-red-500 rounded-full text-white text-(length:--text-profile-text) font-semibold`}>
+                                            Ha
+                                        </div>
                                     </div>
-                                    <button
-                                        className="bg-[rgba(81,80,82,1)] text-[18px] text-white font-semibold h-[44px] w-[120px] font-plex transition-all hover:bg-black hover:scale-105 active:scale-95 [@media(0px<width<=1024px)]:hidden [@media(1024px<width<=1440px)]:w-[100px] [@media(1024px<width<=1440px)]:h-[38px] [@media(1024px<width<=1440px)]:text-[16px]"
-                                        onClick={handleLogout}
-                                    >
-                                        Logout
-                                    </button>
+                                    <svg viewBox="0 0 24 24" className="w-3 h-3 stroke-brand-gray fill-none stroke-2"
+                                    onClick={() => setShowDropdown(!showDropdown)}>
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                    {showDropdown && (
+                                        <div className="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
+                                            <button
+                                                className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-[#FF312E]/8 hover:text-[#FF312E] cursor-pointer"
+                                                onClick={handleLogout}
+                                            >
+                                                Logout
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             ) : (
                                 <div className="flex gap-[20px] [@media(1024px<width<=1280px)]:gap-[10px]">

@@ -1,0 +1,6 @@
+{
+  "name": "my-project",
+  "scripts": {
+    "dev": "start cmd /k \"cd web-kel-3 && npm run dev\" && start cmd /k \"cd backend && php artisan serve\""
+  }
+}    

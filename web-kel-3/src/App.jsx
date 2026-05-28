@@ -14,32 +14,49 @@ import PostProposalPage from './pages/PostProposalPage.jsx'
 import AdminPage from './pages/AdminPage.jsx'
 import UserProfilePage from './pages/UserProfilePage.jsx'
 
+
+const layoutVar = ({ isLogin, setIsLogin, user, setUser }) => {
+    return(
+        <>
+            <Navigator isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/>
+        </>
+    )
+}
+
+
+
 function App() {
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLogin") === "false"
-  );
+  const [isLogin, setIsLogin] = useState(() => {
+    const saved = localStorage.getItem("isLogin")
+    return saved  ? JSON.parse(saved) : false
+  });
 
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user"))
   )
 
+  const navVar = {
+    isLogin,
+    setIsLogin,
+    user,
+    setUser
+  }
+
   return (
     <BrowserRouter>
-        <Navigator isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/>
         <Routes>
           {/* Existing Routes */}
-          <Route path="/" element={<HalamanUtama />} />
-          <Route path="/home" element={<HalamanUtama />} />
-          <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser} />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/tambah" element={<TambahProposal isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/>} />
-          <Route path="/edit/:id" element={<EditPage isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-          {/* ── New CompeteHub Interfaces ─────────────────── */}
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/post-proposal" element={<PostProposalPage isLogin={isLogin} user={user} />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/profil" element={<UserProfilePage user={user} />} />
+          <Route path="/" element={<><Navigator {...navVar}/><HalamanUtama /></>} />
+          <Route path="/home" element={<><Navigator {...navVar}/><HalamanUtama /></>} />
+          <Route path="/login" element={<><Navigator {...navVar}/><LoginPage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser} /></>} />
+          <Route path="/register" element={<><Navigator {...navVar}/><RegisterPage /></>} />
+          <Route path="/catalog" element={<><Navigator {...navVar}/><CatalogPage /></>} />
+          <Route path="/tambah" element={<><Navigator {...navVar}/><TambahProposal isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/></>} />
+          <Route path="/edit/:id" element={<><Navigator {...navVar}/><EditPage isLogin={isLogin} setIsLogin={setIsLogin}/></>} />
+          <Route path="/explore" element={<><Navigator {...navVar}/><ExplorePage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/></>} />
+          <Route path="/post-proposal" element={<><Navigator {...navVar}/><PostProposalPage isLogin={isLogin} user={user} /></>} />
+          <Route path="/admin" element={<><Navigator {...navVar}/><AdminPage /></>} />
+          <Route path="/profil" element={<><Navigator {...navVar}/><UserProfilePage user={user} /></>} />
         </Routes>
     </BrowserRouter>
   )
