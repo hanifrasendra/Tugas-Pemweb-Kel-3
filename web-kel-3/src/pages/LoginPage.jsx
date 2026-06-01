@@ -13,7 +13,7 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
         const dataLogin = { email, password: pass };
 
         try {
-            const response = await fetch("http://localhost/web-kel-3/api/login.php", {
+            const response = await fetch("http://localhost:8000/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -28,7 +28,7 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser}) => {
                 console.log(data.isLogin)
                 alert("Login berhasil!");
                 localStorage.setItem("isLogin", data.isLogin);
-                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("user", JSON.stringify(data.data));
 
                 setIsLogin(true);
                 setUser(data.user);

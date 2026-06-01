@@ -264,6 +264,49 @@ const PostProposalPage = ({ isLogin, user }) => {
     setChecked(next);
   };
 
+  const handleSubmit = () => {
+    const propsalData = new FormData();
+    propsalData.append("nama", nama);
+    propsalData.append("tipeBeasiswa", tipeBeasiswa);
+    propsalData.append("universitas", universitas);
+    propsalData.append("jurusan", jurusan);
+    propsalData.append("semester", semester);
+    propsalData.append("ipk", ipk);
+    propsalData.append("ukt", ukt);
+    propsalData.append("deskripsi", deskripsi);
+
+    if (video) propsalData.append("video", video);
+    if (ktm) propsalData.append("ktm", ktm);
+    if (ktp) propsalData.append("ktp", ktp);
+    if (proposal) propsalData.append("proposal", proposal);
+
+    const req = new XMLHttpRequest();
+
+    req.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+      }
+    }
+
+    req.onload = () => {
+      setIsSaving(false);
+      if (req.status === 200 || req.status === 201) {
+        setShowSuccess(true);
+      } else {
+        alert("Gagal mengirim proposal. Silakan coba lagi.");
+      }
+    };
+
+    req.onerror = () => {
+      setIsSaving(false);
+      alert(`Koneksi gagal.`)
+    };
+
+    req.open('POST', 'http://localhost:8000/api/proposals');
+    req.send(propsalData);
+
+  }
+
   // Calculate progress
   const allFields = [selectedScholarship, tipeBeasiswa, universitas, jurusan, semester, ipk, deskripsi, ktm, ktp, proposal];
   const filled = allFields.filter(Boolean).length;
@@ -586,17 +629,6 @@ const PostProposalPage = ({ isLogin, user }) => {
   };
   const handleBack = () => {
     if (currentStep > 0) setCurrentStep(currentStep - 1);
-  };
-
-  const handleSubmit = async () => {
-    setIsSaving(true);
-    // Simulate upload progress
-    for (let i = 0; i <= 100; i += 10) {
-      await new Promise((r) => setTimeout(r, 100));
-      setUploadProgress(i);
-    }
-    setIsSaving(false);
-    setShowSuccess(true);
   };
 
   if (showSuccess) {

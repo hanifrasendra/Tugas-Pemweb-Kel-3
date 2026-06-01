@@ -74,6 +74,11 @@ const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
                                     </svg>
                                     {showDropdown && (
                                         <div className="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
+                                            <button 
+                                            onClick={() => navigate("/profil")}
+                                            className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-[#333138]/8 hover:text-[#333138] cursor-pointer">
+                                                <span>Profil</span>
+                                            </button>
                                             <button
                                                 className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-[#FF312E]/8 hover:text-[#FF312E] cursor-pointer"
                                                 onClick={handleLogout}

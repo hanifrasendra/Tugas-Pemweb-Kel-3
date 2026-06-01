@@ -11,43 +11,35 @@ const RegisterPage = ({isLogin, setIsLogin, user, setUser}) => {
             return;
         }
 
-        const getUser = await fetch("http://localhost/web-kel-3/api/getUsers.php")
-        const user = await getUser.json();
-
-        const existingUser = user.data.find(u => u.email === email);
-        
-        if(existingUser) {
-            alert("Email sudah terdaftar. Silakan gunakan email lain.");
-        } else {
-            if(pass !== confirmPassword) {
-                alert("Password tidak cocok.");
-                return;
-            }
-            
-            const dataLogin = { nama, email, password: pass };
-
-            try {
-                const response = await fetch("http://localhost/web-kel-3/api/register.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(dataLogin)
-                });
-            
-                const data = await response.json();
-
-                if (data.status === "success") {
-                    alert("registrasi berhasil!");
-                    localStorage.setItem("isLogin", data.isLogin);
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                    window.location.href = "/home";
-                } else {
-                    alert(data.message);
-                }
-
-            } catch (error) {
-                alert("Terjadi kesalahan.");
-            }
+        if(pass !== confirmPassword) {
+            alert("Password dan Konfirmasi Password tidak cocok.");
+            return;
         }
+
+        const dataLogin = { nama, email, password: pass };
+
+        try {
+            const response = await fetch("http://localhost:8000/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dataLogin)
+            });
+            
+            const data = await response.json();
+
+            if (data.status === "success") {
+                alert("registrasi berhasil!");
+                localStorage.setItem("isLogin", data.isLogin);
+                localStorage.setItem("user", JSON.stringify(data.data));
+                window.location.href = "/home";
+            } else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+            alert("Terjadi kesalahan.");
+        }
+        
     }
 
     return(
