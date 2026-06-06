@@ -16,13 +16,28 @@ return new class extends Migration
             $table->id(); 
             
             // Kolom 'nama' untuk menyimpan nama lengkap
-            $table->string('nama'); 
+            $table->string('username'); // Kolom username, bisa kosong (nullable)
+            
+            // Kolom nama lengkap, bisa kosong (nullable)
+            $table->string('namalengkap'); // Kolom nama lengkap, bisa kosong (nullable)
             
             // Kolom 'email' dibuat unik agar tidak ada email yang kembar
             $table->string('email')->unique(); 
             
             // Kolom 'password' untuk menyimpan string password
-            $table->string('password'); 
+            $table->string('password');
+
+            $table->string('gender')->nullable();
+
+            $table->integer('nim')->nullable();
+            
+            $table->enum('status', ['Mahasiswa', 'Umum'])->default('Umum')->nullable(); // Kolom status dengan nilai default 'Mahasiswa'
+
+            $table->string('universitas')->nullable(); // Kolom universitas, bisa kosong (nullable)
+            
+            $table->string('jurusan')->nullable(); // Kolom jurusan, bisa kosong%
+            
+            $table->integer('semester')->nullable(); // Kolom semester, bisa kosong (nullable)
             
             // Opsional: Menambahkan kolom created_at dan updated_at otomatis bawaan Laravel
             $table->timestamps(); 

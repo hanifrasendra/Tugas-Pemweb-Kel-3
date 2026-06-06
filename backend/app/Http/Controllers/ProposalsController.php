@@ -7,12 +7,21 @@ use App\Models\Proposal;
 
 class ProposalsController extends Controller
 {
-    public function catalogs()
+    public function peserta()
     {
-        $catalogs = Proposal::all();
+        $peserta = Proposal::all();
         return response()->json([
             'status' => 'success',
-            'data' => $catalogs
+            'data' => $peserta
+        ]);
+    }
+
+    public function show($id)
+    {
+        $proposal = Proposal::find($id);
+        return response()->json([
+            'status' => 'success',
+            'data' => $proposal
         ]);
     }
 }

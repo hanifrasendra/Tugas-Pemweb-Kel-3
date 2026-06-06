@@ -12,6 +12,7 @@ const Navigator = ({ isLogin, setIsLogin, user, setUser }) => {
         localStorage.removeItem("isLogin");
         localStorage.removeItem("user");
         setIsLogin(false);
+        navigate('/home');
     };
 
     // Style helper untuk animasi hover link
