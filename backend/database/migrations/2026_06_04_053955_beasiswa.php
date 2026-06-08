@@ -13,8 +13,10 @@ return new class extends Migration
             $table->string('nama_beasiswa');
             $table->foreignId('id_lembaga')->constrained('pendonor')->onDelete('cascade');
             $table->string('nama_lembaga');
-            $table->enum('type', ['Reguler', 'Prestasi', 'Organisasi'])->unique(); // Adjust options as needed
+            $table->enum('type', ['Reguler', 'Prestasi', 'Organisasi']); // Adjust options as needed
             $table->integer('kuota')->nullable();
+            $table->integer('nominal')->nullable();
+            $table->enum('status', ['Draft', 'Aktif', 'Selesai']);
             $table->text('deskripsi')->nullable();
             $table->date('deadline')->nullable();
             $table->timestamps();

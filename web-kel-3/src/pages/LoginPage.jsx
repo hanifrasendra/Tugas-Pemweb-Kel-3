@@ -42,6 +42,7 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser, penyelenggara, setPenyel
                 console.log(isLogin);
                 console.log(user);
                 navigate("/home");
+                window.location.reload();
             } else {
                 alert(data.message);
             }
@@ -77,8 +78,8 @@ const LoginPage = ({isLogin, setIsLogin, user, setUser, penyelenggara, setPenyel
 
                 setIsLogin(true);
                 setUser(data.user);
-                console.log(isLogin);
-                console.log(user);
+                console.log(isLogPenyelenggara);
+                console.log(penyelenggara);
                 navigate("/admin");
                 window.location.reload();
             } else {

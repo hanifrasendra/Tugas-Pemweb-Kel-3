@@ -1,5 +1,5 @@
 ﻿import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 // ─── Step Indicator ──────────────────────────────────────
 const StepIndicator = ({ currentStep, steps }) => (
@@ -182,41 +182,16 @@ const TagInput = ({ tags, setTags }) => {
 const Checklist = ({ items, checked, onToggle }) => (
   <div className="bg-[#FF312E]/8/50 border border-[#FF312E]/15 rounded-2xl p-4">
     <p className="text-sm font-bold text-gray-700 mb-3 font-plex flex items-center gap-2">
-      <span>📋</span> Checklist Persyaratan
+      <span>📋</span> List Persyaratan
     </p>
     <div className="space-y-2">
       {items.map((item, i) => (
         <label key={i} className="flex items-center gap-3 cursor-pointer group">
-          <div
-            onClick={() => onToggle(i)}
-            className={`w-5 h-5 rounded-lg flex items-center justify-center transition-all duration-300 flex-shrink-0 ${
-              checked[i]
-                ? "bg-gradient-to-br from-[#993133] to-[#FF312E] shadow-[0_2px_8px_rgba(255,49,46,0.4)]"
-                : "border-2 border-gray-300 group-hover:border-[#FF312E]/60"
-            }`}
-          >
-            {checked[i] && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" className="w-3 h-3">
-                <path d="M20 6 9 17l-5-5" />
-              </svg>
-            )}
-          </div>
           <span className={`text-sm font-plex transition-colors ${checked[i] ? "text-gray-400 line-through" : "text-gray-700"}`}>
             {item}
           </span>
         </label>
       ))}
-    </div>
-    <div className="mt-3 flex items-center gap-2">
-      <div className="h-1.5 flex-1 bg-gray-200 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-[#993133] to-[#FF312E] rounded-full transition-all duration-500"
-          style={{ width: `${(checked.filter(Boolean).length / items.length) * 100}%` }}
-        />
-      </div>
-      <p className="text-xs font-bold text-[#FF312E] font-plex whitespace-nowrap">
-        {checked.filter(Boolean).length}/{items.length}
-      </p>
     </div>
   </div>
 );
@@ -240,14 +215,21 @@ const PostProposalPage = ({ isLogin, user }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const location = useLocation();
+  const { id } = useParams();
+
+  const scholarship = location.state?.scholarship || {};
+
   // Form state
-  const [selectedScholarship, setSelectedScholarship] = useState("Beasiswa Unggulan Kemendikbud 2025");
+  const [selectedScholarship, setSelectedScholarship] = useState(scholarship.nama_beasiswa);
+  const [idLembaga, setIdLembaga] = useState(id);
+  const [namaLembaga, setNamaLembaga] = useState(scholarship.nama_lembaga)
   const [tipeBeasiswa, setTipeBeasiswa] = useState("");
-  const [nama] = useState(user?.nama || "");
-  const [universitas, setUniversitas] = useState("");
+  const [nama] = useState(user?.namalengkap || "");
+  const [universitas, setUniversitas] = useState(user?.universitas || "");
   const [jurusan, setJurusan] = useState("");
-  const [semester, setSemester] = useState("");
-  const [ipk, setIpk] = useState("");
+  const [semester, setSemester] = useState(user?.semester || "");
+  const [ipk, setIpk] = useState(user?.ipk || "");
   const [ukt, setUkt] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [ktm, setKtm] = useState(null);
@@ -265,26 +247,39 @@ const PostProposalPage = ({ isLogin, user }) => {
   };
 
   const handleSubmit = () => {
+    setIsSaving(true);
+    setUploadProgress(0);
+
+
     const propsalData = new FormData();
-    propsalData.append("nama", nama);
-    propsalData.append("tipeBeasiswa", tipeBeasiswa);
-    propsalData.append("universitas", universitas);
-    propsalData.append("jurusan", jurusan);
+    propsalData.append("nama_lengkap", nama);
+    propsalData.append("univ", universitas);
+    propsalData.append("prodi", jurusan);
     propsalData.append("semester", semester);
     propsalData.append("ipk", ipk);
     propsalData.append("ukt", ukt);
     propsalData.append("deskripsi", deskripsi);
 
-    if (video) propsalData.append("video", video);
-    if (ktm) propsalData.append("ktm", ktm);
-    if (ktp) propsalData.append("ktp", ktp);
-    if (proposal) propsalData.append("proposal", proposal);
+    propsalData.append("id_beasiswa", id); 
+    propsalData.append("nama_beasiswa", selectedScholarship || "");
+    propsalData.append("id_lembaga", idLembaga || "");
+    propsalData.append("lembaga", namaLembaga || "");
+    propsalData.append("gender", user?.gender || "Laki-laki");
+    propsalData.append("id_user", user?.id || "");
+
+    propsalData.append("video", video);
+    propsalData.append("ktm", ktm);
+    propsalData.append("ktp", ktp);
+    propsalData.append("proposal", proposal);
+
+    console.log("Isi FormData asli:", Object.fromEntries(propsalData));
 
     const req = new XMLHttpRequest();
 
     req.upload.onprogress = (e) => {
       if (e.lengthComputable) {
         const percent = Math.round((e.loaded / e.total) * 100);
+        setUploadProgress(percent); // 🚀 Panggil fungsi ini agar state UI-nya terupdate secara real-time!
       }
     }
 
@@ -321,7 +316,7 @@ const PostProposalPage = ({ isLogin, user }) => {
           <div className="flex items-start justify-between">
             <div>
               <p className="text-white/70 text-xs font-plex mb-1">Penyelenggara</p>
-              <p className="font-semibold text-sm font-plex">Kemendikbud RI</p>
+              <p className="font-semibold text-sm font-plex">{selectedScholarship}</p>
             </div>
             <span className="bg-white/20 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-plex font-bold">Prestasi</span>
           </div>
@@ -344,23 +339,7 @@ const PostProposalPage = ({ isLogin, user }) => {
       </div>
 
       <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2 font-plex">Tipe Beasiswa</label>
-        <div className="grid grid-cols-3 gap-3">
-          {["Reguler", "Prestasi", "Leadership"].map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setTipeBeasiswa(t)}
-              className={`py-3 rounded-2xl text-sm font-bold font-plex border-2 transition-all duration-300 ${
-                tipeBeasiswa === t
-                  ? "border-[#FF312E] bg-[#FF312E] text-white shadow-[0_4px_12px_rgba(255,49,46,0.35)] scale-105"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-[#FF312E]/40 hover:text-[#FF312E]"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
+        <label className="block text-sm font-bold text-gray-700 mb-2 font-plex">Requirement</label>    
       </div>
 
       <Checklist items={requirements} checked={checked} onToggle={toggleCheck} />
@@ -385,15 +364,14 @@ const PostProposalPage = ({ isLogin, user }) => {
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 font-plex">Jenis Kelamin</label>
           <div className="flex gap-3">
-            {["Laki-laki", "Perempuan"].map((g) => (
-              <button
-                key={g}
+            {user.gender && (
+              <div
                 type="button"
                 className="flex-1 py-3.5 rounded-2xl text-sm font-bold font-plex border-2 border-gray-200 bg-white text-gray-600 hover:border-[#FF312E]/40 hover:text-[#FF312E] transition-all"
               >
-                {g === "Laki-laki" ? "👨" : "👩"} {g}
-              </button>
-            ))}
+                {user.gender === "Laki-laki" ? "👨" : "👩"} {user.gender}
+              </div>
+            )}
           </div>
         </div>
       </div>

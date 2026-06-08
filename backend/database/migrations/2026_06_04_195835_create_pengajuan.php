@@ -10,13 +10,18 @@ return new class extends Migration
     {
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id();
-            $table->text('deskirpsi')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
             $table->string('univ')->nullable();
             $table->string('prodi')->nullable();
             $table->integer('semester')->nullable();
             $table->double('ipk')->nullable();
             $table->integer('ukt')->nullable();
+            $table->string('ktp_url')->nullable();       // ← file KTP
+            $table->string('ktm_url')->nullable();       // ← file KTM
+            $table->string('video_url')->nullable();
+            $table->string('proposal_url')->nullable();
+            $table->enum('status', ['Pending', 'Diterima', 'Ditolak'])->default('Pending')->nullable();
             $table->string('nama_lengkap')->nullable();
             $table->foreignId('id_user')->nullable()->constrained('register_user')->onDelete('cascade');
             $table->string('nama_beasiswa')->nullable();

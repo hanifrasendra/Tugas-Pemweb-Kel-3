@@ -108,20 +108,15 @@ const mockScholarships = [
 ];
 
 // ─── Countdown Component ─────────────────────────────────
-const Countdown = ({ isLogin, set }) => {
-  const [timeLeft, setTimeLeft] = useState({});
+const Countdown = ({ isLogin, set, deadline }) => {
+  const [timeRange, setTimeRange] = useState(deadline);
 
-  
-
-  if (timeLeft.expired) return <span className="text-red-400 font-bold text-xs">⚠ Expired</span>;
-
-  const isUrgent = timeLeft.days <= 5;
   return (
-    <div className={`flex items-center gap-1 text-xs font-bold font-plex ${isUrgent ? "text-red-400" : "text-[#FF312E]/50"}`}>
+    <div className={`flex items-center gap-1 text-xs font-bold font-plex`}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
         <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
       </svg>
-      {timeLeft.days > 0 ? `${timeLeft.days}h ${timeLeft.hours}j` : `${timeLeft.hours}j ${timeLeft.mins}m`} lagi
+      {timeRange}
     </div>
   );
 };
@@ -130,7 +125,6 @@ const Countdown = ({ isLogin, set }) => {
 const ScholarshipCard = ({ scholarship, onSave, onApply, navigate }) => {
   const formatNominal = (n) => {
     if (n >= 1000000) return `Rp ${(n / 1000000).toFixed(0)} Jt`;
-    return `Rp ${n.toLocaleString("id-ID")}`;
   };
 
 
@@ -155,9 +149,9 @@ const ScholarshipCard = ({ scholarship, onSave, onApply, navigate }) => {
         </div>
 
         <h3 className="mt-3 font-plex font-bold text-[15px] text-gray-900 leading-tight group-hover:text-[#993133] transition-colors line-clamp-2">
-          {scholarship.title}
+          {scholarship.nama_beasiswa}
         </h3>
-        <p className="text-[12px] text-gray-400 mt-1 font-plex">{scholarship.provider}</p>
+        <p className="text-[12px] text-gray-400 mt-1 font-plex">{scholarship.nama_lembaga}</p>
       </div>
 
       {/* Stats */}
@@ -169,25 +163,21 @@ const ScholarshipCard = ({ scholarship, onSave, onApply, navigate }) => {
           </div>
           <div className="flex-1 bg-gray-50 rounded-xl p-3">
             <p className="text-[10px] text-gray-400 font-plex">Kuota</p>
-            <p className="text-[13px] font-bold text-gray-700 font-plex">{scholarship.quota} org</p>
+            <p className="text-[13px] font-bold text-gray-700 font-plex">{scholarship.kuota} org</p>
           </div>
         </div>
       </div>
 
       {/* Tags */}
       <div className="px-5 mt-3 flex flex-wrap gap-1">
-        {scholarship.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="text-[10px] bg-[#FF312E]/8 text-[#FF312E] px-2 py-0.5 rounded-full font-plex border border-[#FF312E]/15">
-            {tag}
-          </span>
-        ))}
+        
       </div>
 
       {/* Footer */}
       <div className="px-5 mt-4 pb-5 flex items-center justify-between">
         <Countdown deadline={scholarship.deadline} />
         <button
-          onClick={() => navigate('/post-proposal')}
+          onClick={() => navigate(`/post-proposal/${scholarship.id}`, { state: { scholarship } })}
           className="bg-gradient-to-r from-[#993133] to-[#FF312E] hover:from-[#7a2527] hover:to-[#993133] text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-[0_4px_12px_rgba(255,49,46,0.35)] hover:shadow-[0_6px_20px_rgba(255,49,46,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 font-plex cursor-pointer"
         >
           Ajukan →
@@ -376,7 +366,7 @@ const TrendingBanner = ({ scholarships, onApply }) => {
 // ─── MAIN PAGE ────────────────────────────────────────────
 const ExplorePage = () => {
   const navigate = useNavigate();
-  const [scholarships, setScholarships] = useState(mockScholarships);
+  const [scholarships, setScholarships] = useState([]);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("terbaru");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -387,8 +377,21 @@ const ExplorePage = () => {
   const categories = ["Semua", "Prestasi", "Reguler", "Leadership", "Saved"];
 
   useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(t);
+
+    const Beasiswa = async () => {
+      try{
+        setIsLoading(false)
+        const getBeasiswa = await fetch("http://localhost:8000/api/beasiswa")
+        const dataBeasiswa = await getBeasiswa.json();
+        console.log(scholarships)
+        setScholarships(dataBeasiswa.data)
+        console.log(scholarships)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    Beasiswa();
   }, []);
 
   const handleSave = (id) => {
@@ -402,7 +405,6 @@ const ExplorePage = () => {
   };
 
   const filtered = scholarships.filter((s) => {
-    const matchSearch = s.title.toLowerCase().includes(search.toLowerCase()) || s.provider.toLowerCase().includes(search.toLowerCase());
     const matchCategory = activeCategory === "Semua" || (activeCategory === "Saved" ? s.saved : s.type === activeCategory);
     const matchJurusan = filters.jurusan === "Semua Jurusan" || s.prodi === filters.jurusan || s.prodi === "Semua Jurusan";
     const matchFinansial = filters.finansial === "Semua" || s.financial === filters.finansial || s.financial === "Semua";
@@ -412,7 +414,7 @@ const ExplorePage = () => {
     else if (filters.nominal === "10–25 Jt") matchNominal = s.nominal >= 10000000 && s.nominal <= 25000000;
     else if (filters.nominal === "25–50 Jt") matchNominal = s.nominal > 25000000 && s.nominal <= 50000000;
     else if (filters.nominal === "> 50 Jt") matchNominal = s.nominal > 50000000;
-    return matchSearch && matchCategory && matchJurusan && matchFinansial && matchTipe && matchNominal;
+    return matchCategory && matchJurusan && matchFinansial && matchTipe && matchNominal;
   });
 
   const sorted = [...filtered].sort((a, b) => {

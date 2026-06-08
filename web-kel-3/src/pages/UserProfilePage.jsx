@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -64,7 +64,10 @@ const UserProfilePage = ({ user }) => {
   const [isEdit, setIsEdit] = useState(null);
 
   const [userData, setUserData] = useState(user);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  
+  const [proposal, setProposal] = useState([]);
+
+
 
   const tabs = [
     { id: "riwayat", label: "Riwayat Proposal", icon: "📋" },
@@ -95,6 +98,20 @@ const UserProfilePage = ({ user }) => {
       alert("Terjadi kesalahan saat memperbarui data.");
     }
   }
+
+  useEffect(() => {
+    const fetchProposal = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/api/proposal_user?id_user=${user?.id}`);
+        const json = await res.json();
+        setProposal(json.data);
+        console.log(proposal)
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProposal();
+  }, []);
 
   const handleClose = () => {
     setIsEdit(null);
@@ -600,7 +617,65 @@ const UserProfilePage = ({ user }) => {
           <div className="mt-4">
             {activeTab === "riwayat" && (
               <div className="space-y-3">
-                
+                {proposal.length > 0 ? (
+                  <div>
+                    {proposal.map((applicant, i) => (
+                      <div
+                        key={applicant.id}
+                        className={`grid grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr_auto] gap-4 items-center px-4 py-4 border-b border-gray-50 hover:bg-[#FF312E]/5 transition-colors ${i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}
+                      >
+                        {/* Peserta */}
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gradient-to-br from-[#993133] to-[#FF312E] rounded-full flex items-center justify-center text-white text-xs font-bold font-plex flex-shrink-0">
+                            {applicant.nama_lengkap?.charAt(0)}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-gray-900 font-plex whitespace-nowrap">{applicant.nama_lengkap}</p>
+                            {applicant.video_url && (
+                              <span className="text-[10px] text-[#FF312E] font-plex flex items-center gap-0.5">▶ Ada Video</span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Universitas / Prodi */}
+                        <div>
+                          <p className="text-xs font-semibold text-gray-700 font-plex">{applicant.univ}</p>
+                          <p className="text-[11px] text-gray-400 font-plex">{applicant.prodi} · Sem {applicant.semester}</p>
+                        </div>
+
+                        {/* IPK */}
+                        <span className={`text-sm font-bold font-plex `}>
+                          {parseFloat(applicant.ipk).toFixed(2)}
+                        </span>
+
+                        {/* Gender */}
+                        <span className="text-xs bg-[#FF312E]/8 text-[#FF312E] px-2 py-1 rounded-lg font-plex font-semibold border border-[#FF312E]/15 w-fit">
+                          {applicant.gender || "-"}
+                        </span>
+
+                        {/* Tanggal */}
+                        <p className="text-xs text-gray-400 font-plex">{applicant.created_at?.split("T")[0]}</p>
+
+                        {/* Status */}
+                        <StatusBadge status={applicant.status || "Pending"} />
+
+                        {/* Aksi */}
+                        {applicant.status === 'Pending'}
+                        <button
+                          onClick={() => navigate(`/proposal/${applicant.id}`)}
+                          className="bg-gradient-to-r from-[#993133] to-[#FF312E] text-white text-xs font-bold px-3 py-1.5 rounded-lg font-plex shadow-[0_2px_8px_rgba(255,49,46,0.3)] hover:scale-105 transition-all duration-200 whitespace-nowrap"
+                        >
+                          Edit →
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-16 text-center">
+                    <div className="text-4xl mb-3">📋</div>
+                    <p className="text-gray-400 font-plex text-sm">Belum ada proposal yang diajukan.</p>
+                  </div>
+                )}
               </div>
             )}
 

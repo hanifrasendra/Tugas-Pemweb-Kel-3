@@ -133,14 +133,28 @@ const BarChart = () => {
 };
 
 // ─── Status Badge ─────────────────────────────────────────
-const StatusBadge = ({ status }) => {
+const StatusBadge = ({ status, onChange }) => {
   const config = {
     Pending: { bg: "bg-amber-50", text: "text-amber-600", border: "border-amber-200", dot: "bg-amber-500" },
     Diterima: { bg: "bg-green-50", text: "text-green-600", border: "border-green-200", dot: "bg-green-500" },
     Ditolak: { bg: "bg-red-50", text: "text-red-500", border: "border-red-200", dot: "bg-red-500" },
-    Review: { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-200", dot: "bg-blue-500" },
   };
   const c = config[status] || config.Pending;
+
+  if (onChange) {
+    return (
+      <select
+        value={status || "Pending"}
+        onChange={(e) => onChange(e.target.value)}
+        className={`text-xs font-bold px-3 py-1.5 rounded-full border cursor-pointer outline-none transition-all ${c.bg} ${c.text} ${c.border}`}
+      >
+        <option value="Pending">● Pending</option>
+        <option value="Diterima">● Diterima</option>
+        <option value="Ditolak">● Ditolak</option>
+      </select>
+    );
+  }
+
   return (
     <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-plex border ${c.bg} ${c.text} ${c.border}`}>
       <span className={`w-1.5 h-1.5 rounded-full ${c.dot} ${status === "Review" ? "animate-pulse" : ""}`} />
@@ -309,6 +323,7 @@ const Sidebar = ({ activeMenu, setActiveMenu, penyelenggara, setIsLogPenyelengga
 const DetailBeasiswa = ({ beasiswa, setBeasiswa }) => {
   const navigate = useNavigate();
   const [peserta, setPeserta] = useState([]);
+  const [showEdit, isShowEdit] = useState(false)
 
   useEffect(() => {
     const Peserta = async () => {
@@ -413,7 +428,21 @@ const DetailBeasiswa = ({ beasiswa, setBeasiswa }) => {
                 <p className="text-xs text-gray-400 font-plex">{applicant.created_at?.split("T")[0]}</p>
 
                 {/* Status */}
-                <StatusBadge status={applicant.status || "Pending"} />
+                <StatusBadge 
+                status={applicant.status || "Pending"} 
+                
+                onChange={async (newStatus) => {
+                  await fetch(`http://localhost:8000/api/peserta/${applicant.id}/status`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ status: newStatus })
+                  });
+                  setPeserta(prev => prev.map(p =>
+                    p.id === applicant.id ? { ...p, status: newStatus } : p
+                  ));
+                }}
+                
+                />
 
                 {/* Aksi */}
                 <button
@@ -440,21 +469,30 @@ const DetailBeasiswa = ({ beasiswa, setBeasiswa }) => {
 
 
 // ─── Beasiswa Page ────────────────────────────────────────
-const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta }) => {
+const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta, beasiswa, setBeasiswa, penyelenggara }) => {
   const [beasiswaList, setBeasiswaList] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const { page } = useParams();
   const [form, setForm] = useState({
-    judul: "", nominal: "", kuota: "", deadline: "", jenis: "Reguler", status: "Draft", deskripsi: "",
+    nama_beasiswa: "", 
+    id_lembaga: penyelenggara.id, 
+    nama_lembaga: penyelenggara.nama_lembaga, 
+    nominal: "", 
+    kuota: "", 
+    deadline: "", 
+    type: "Reguler", 
+    status: "Draft", 
+    deskripsi: ""
   });
 
   useEffect(() => {
     const BeasiswaData = async () => {
       try{
-        const getBeasiswa = await fetch("http://localhost:8000/api/beasiswa")
-        const beasiswa = await getBeasiswa.json();
-        setBeasiswaList(beasiswa.data)
-        console.log(beasiswaList.data)
+        const getBeasiswa = await fetch(`http://localhost:8000/api/beasiswa_lembaga?nama_lembaga=${penyelenggara.nama_lembaga}`)
+        const dataBeasiswa = await getBeasiswa.json();
+        setBeasiswaList(dataBeasiswa.data)
+        console.log(beasiswaList)
+        console.log(form)
       } catch (err) {
         console.error(err)
       }
@@ -465,20 +503,27 @@ const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta }) =>
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = () => {
-    if (!form.judul || !form.nominal || !form.kuota || !form.deadline) {
-      alert("Isi semua field wajib."); return;
+  const handleSubmit = async () => {
+    try {
+      console.log(form)
+      const uploadBeasiswa = await fetch("http://localhost:8000/api/upload_beasiswa", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+      });
+
+      const response = await uploadBeasiswa.json();
+
+      if(response.status === "success") {
+        alert("Penambahan berhasil!");
+      } else {
+        alert(response.message)
+      }
+    } catch (err) {
+      console.error(err)
     }
-    setBeasiswaList([...beasiswaList, {
-      id: beasiswaList.length + 1,
-      ...form,
-      nominal: Number(form.nominal),
-      kuota: Number(form.kuota),
-      terdaftar: 0,
-      pendonor: "Bank Indonesia", // nanti dari data penyelenggara login
-    }]);
-    setForm({ judul: "", nominal: "", kuota: "", deadline: "", jenis: "Reguler", status: "Draft", deskripsi: "" });
-    setShowForm(false);
   };
 
   const statusConfig = {
@@ -519,8 +564,8 @@ const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta }) =>
             <div className="grid grid-cols-1 [@media(min-width:640px)]:grid-cols-2 gap-4">
 
               <div className="[@media(min-width:640px)]:col-span-2">
-                <label className="text-xs text-gray-500 font-plex mb-1.5 block">Judul Beasiswa *</label>
-                <input type="text" name="judul" value={form.judul} onChange={handleChange}
+                <label className="text-xs text-gray-500 font-plex mb-1.5 block">Judul Beasiswa/Nama Beasiswa *</label>
+                <input type="text" name="nama_beasiswa" value={form.nama_beasiswa} onChange={handleChange}
                   placeholder="contoh: Beasiswa Prestasi 2025"
                   className="border border-gray-200 w-full h-[45px] px-[20px] text-sm rounded-lg focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 outline-none transition-all" />
               </div>
@@ -548,9 +593,9 @@ const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta }) =>
               <div>
                 <label className="text-xs text-gray-500 font-plex mb-1.5 block">Jenis</label>
                 <div className="relative">
-                  <select name="jenis" value={form.jenis} onChange={handleChange}
+                  <select name="type" value={form.type} onChange={handleChange}
                     className="border border-gray-200 w-full h-[45px] px-[20px] text-sm rounded-lg appearance-none cursor-pointer bg-white focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 outline-none transition-all">
-                    {["Reguler", "Prestasi", "Afirmasi", "Leadership"].map((j) => <option key={j}>{j}</option>)}
+                    {["Reguler", "Prestasi", "Organisasi"].map((j) => <option key={j}>{j}</option>)}
                   </select>
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF312E]">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
@@ -618,11 +663,11 @@ const BeasiswaPage = ({ onSelect, setBeasiswaTerpilih, peserta, setPeserta }) =>
                     🎓
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-900 font-plex text-sm">{item.judul}</h4>
+                    <h4 className="font-bold text-gray-900 font-plex text-sm">{item.nama_beasiswa}</h4>
                     <div className="flex flex-wrap gap-3 mt-1.5">
                       <span className="text-xs text-[#FF312E] font-bold font-plex">{formatNominal(item.nominal)}</span>
                       <span className="text-xs text-gray-400 font-plex">📅 Deadline: {item.deadline}</span>
-                      <span className="text-xs bg-[#FF312E]/8 text-[#FF312E] px-2 py-0.5 rounded-lg font-plex font-semibold border border-[#FF312E]/15">{item.jenis}</span>
+                      <span className="text-xs bg-[#FF312E]/8 text-[#FF312E] px-2 py-0.5 rounded-lg font-plex font-semibold border border-[#FF312E]/15">{item.type}</span>
                     </div>
                     <div className="mt-3">
                       <div className="flex justify-between mb-1">
@@ -663,36 +708,15 @@ const AdminPage = ({ isLogPenyelenggara, setIsLogPenyelenggara, penyelenggara })
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("Semua");
   const [selectedApplicant, setSelectedApplicant] = useState(null);
-  const [applicants, setApplicants] = useState(mockApplicants);
   const [peserta, setPeserta] = useState([]);
   const [beasiswaTerpilih, setBeasiswaTerpilih] = useState("");
   const [showNotif, setShowNotif] = useState(false);
 
   const statusOptions = ["Semua", "Pending", "Review", "Diterima", "Ditolak"];
 
-  const filteredApplicants = applicants.filter((a) => {
-    const matchSearch =
-      a.nama.toLowerCase().includes(search.toLowerCase()) ||
-      a.universitas.toLowerCase().includes(search.toLowerCase()) ||
-      a.prodi.toLowerCase().includes(search.toLowerCase());
-    const matchStatus = statusFilter === "Semua" || a.status === statusFilter;
-    return matchSearch && matchStatus;
-  });
-
-  const handleApprove = (id) => {
-    setApplicants((prev) => prev.map((a) => (a.id === id ? { ...a, status: "Diterima" } : a)));
-    setSelectedApplicant(null);
-  };
-  const handleReject = (id) => {
-    setApplicants((prev) => prev.map((a) => (a.id === id ? { ...a, status: "Ditolak" } : a)));
-    setSelectedApplicant(null);
-  };
 
   const donutData = [
-    { label: "Pending", value: applicants.filter((a) => a.status === "Pending").length, color: "#F59E0B" },
-    { label: "Review", value: applicants.filter((a) => a.status === "Review").length, color: "#3B82F6" },
-    { label: "Diterima", value: applicants.filter((a) => a.status === "Diterima").length, color: "#10B981" },
-    { label: "Ditolak", value: applicants.filter((a) => a.status === "Ditolak").length, color: "#EF4444" },
+    
   ];
 
   return (
@@ -757,120 +781,6 @@ const AdminPage = ({ isLogPenyelenggara, setIsLogPenyelenggara, penyelenggara })
                 <DonutChart data={donutData} />
               </div>
             </div>
-
-            {/* Table Section */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(255,49,46,0.06)] overflow-hidden">
-              {/* Table Header */}
-              <div className="p-5 border-b border-gray-100 flex flex-col [@media(min-width:640px)]:flex-row items-start [@media(min-width:640px)]:items-center gap-4">
-                <div>
-                  <h3 className="font-bold text-gray-900 font-plex">Manajemen Peserta</h3>
-                  <p className="text-xs text-gray-400 font-plex">{filteredApplicants.length} peserta ditemukan</p>
-                </div>
-                <div className="flex items-center gap-3 ml-auto w-full [@media(min-width:640px)]:w-auto">
-                  {/* Search */}
-                  <div className="relative flex-1 [@media(min-width:640px)]:w-56">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
-                      <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                    </svg>
-                    <input
-                      type="text"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder="Cari peserta..."
-                      className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm font-plex text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF312E]/60 focus:border-transparent"
-                    />
-                  </div>
-                  {/* Status Filter */}
-                  <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-plex text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF312E]/60 cursor-pointer"
-                  >
-                    {statusOptions.map((s) => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              {/* Table */}
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-100">
-                      {["Peserta", "Universitas / Prodi", "IPK", "Tipe", "Tanggal", "Status", "Aksi"].map((h) => (
-                        <th key={h} className="text-left text-xs font-bold text-gray-500 font-plex px-4 py-3 whitespace-nowrap">{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredApplicants.map((applicant, i) => (
-                      <tr
-                        key={applicant.id}
-                        className={`border-b border-gray-50 hover:bg-[#FF312E]/8/30 transition-colors cursor-pointer ${i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}
-                      >
-                        <td className="px-4 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-gradient-to-br from-[#993133] to-[#FF312E] rounded-full flex items-center justify-center text-white text-xs font-bold font-plex flex-shrink-0">
-                              {applicant.nama.charAt(0)}
-                            </div>
-                            <div>
-                              <p className="text-sm font-bold text-gray-900 font-plex whitespace-nowrap">{applicant.nama}</p>
-                              {applicant.hasVideo && (
-                                <span className="text-[10px] text-[#FF312E] font-plex flex items-center gap-0.5">▶ Ada Video</span>
-                              )}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4">
-                          <p className="text-xs font-semibold text-gray-700 font-plex">{applicant.universitas}</p>
-                          <p className="text-[11px] text-gray-400 font-plex">{applicant.prodi} · Sem {applicant.semester}</p>
-                        </td>
-                        <td className="px-4 py-4">
-                          <span className={`text-sm font-bold font-plex ${parseFloat(applicant.ipk) >= 3.5 ? "text-green-600" : parseFloat(applicant.ipk) >= 3.0 ? "text-amber-600" : "text-red-500"}`}>
-                            {applicant.ipk.toFixed(2)}
-                          </span>
-                        </td>
-                        <td className="px-4 py-4">
-                          <span className="text-xs bg-[#FF312E]/8 text-[#FF312E] px-2 py-1 rounded-lg font-plex font-semibold border border-[#FF312E]/15">{applicant.tipe}</span>
-                        </td>
-                        <td className="px-4 py-4">
-                          <p className="text-xs text-gray-400 font-plex">{applicant.date}</p>
-                        </td>
-                        <td className="px-4 py-4">
-                          <StatusBadge status={applicant.status} />
-                        </td>
-                        <td className="px-4 py-4">
-                          <button
-                            onClick={() => setSelectedApplicant(applicant)}
-                            className="bg-gradient-to-r from-[#993133] to-[#FF312E] text-white text-xs font-bold px-3 py-1.5 rounded-lg font-plex shadow-[0_2px_8px_rgba(255,49,46,0.3)] hover:shadow-[0_4px_12px_rgba(255,49,46,0.4)] hover:scale-105 transition-all duration-200 whitespace-nowrap"
-                          >
-                            Review →
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-
-                {filteredApplicants.length === 0 && (
-                  <div className="py-16 text-center">
-                    <div className="text-4xl mb-3">🔍</div>
-                    <p className="text-gray-400 font-plex text-sm">Tidak ada peserta yang cocok dengan filter</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Table Footer */}
-              <div className="px-5 py-3 border-t border-gray-100 flex items-center justify-between">
-                <p className="text-xs text-gray-400 font-plex">Menampilkan {filteredApplicants.length} dari {applicants.length} peserta</p>
-                <div className="flex gap-1">
-                  {[1, 2, 3].map((p) => (
-                    <button key={p} className={`w-7 h-7 rounded-lg text-xs font-bold font-plex transition-all ${p === 1 ? "bg-[#FF312E] text-white" : "bg-gray-100 text-gray-500 hover:bg-[#FF312E]/8 hover:text-[#FF312E]"}`}>
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </main>
       )}
@@ -880,7 +790,7 @@ const AdminPage = ({ isLogPenyelenggara, setIsLogPenyelenggara, penyelenggara })
           {beasiswaTerpilih ? (
             <DetailBeasiswa beasiswa={beasiswaTerpilih} setBeasiswa={setBeasiswaTerpilih} peserta={peserta} setPeserta={setPeserta}/>
           ) : (
-            <BeasiswaPage onSelect={(item) => setBeasiswaTerpilih(item)}/>
+            <BeasiswaPage onSelect={(item) => setBeasiswaTerpilih(item)} beasiswa={beasiswaTerpilih} setBeasiswa={setBeasiswaTerpilih} penyelenggara={penyelenggara}/>
           )}
         </>
       )}
@@ -889,8 +799,6 @@ const AdminPage = ({ isLogPenyelenggara, setIsLogPenyelenggara, penyelenggara })
       <ApprovalModal
         applicant={selectedApplicant}
         onClose={() => setSelectedApplicant(null)}
-        onApprove={handleApprove}
-        onReject={handleReject}
       />
     </div>
   );

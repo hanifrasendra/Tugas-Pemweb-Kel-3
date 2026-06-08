@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::post('/proposals', [ProposalsController::class, 'proposals']);
 
 Route::get('/catalogs', [ProposalsController::class, 'catalogs']);
 Route::get('/proposal/{id}', [ProposalsController::class, 'show']);
+Route::get('/proposal_user', [ProposalsController::class, 'proposal_user']);
 
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
@@ -31,4 +33,7 @@ Route::post('/register-penyelenggara', [PenyelenggaraController::class, 'registe
 Route::post('/login-penyelenggara', [PenyelenggaraController::class, 'login']);
 
 Route::get('/beasiswa', [BeasiswaController::class, 'beasiswa']);
+Route::get('/beasiswa_lembaga', [BeasiswaController::class, 'beasiswa_lembaga']);
 Route::get('/peserta', [ProposalsController::class, 'peserta']);
+Route::post('/upload_beasiswa', [BeasiswaController::class, 'upload_beasiswa']);
+Route::post('/peserta/{id}/status', [ProposalsController::class, 'status']);

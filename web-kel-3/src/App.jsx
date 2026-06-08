@@ -68,7 +68,7 @@ function App() {
           <Route path="/tambah" element={<><Navigator {...navVar}/><TambahProposal isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/></>} />
           <Route path="/proposal/:id" element={<><DetailProposal isLogin={isLogin} setIsLogin={setIsLogin}/></>} />
           <Route path="/explore" element={<><Navigator {...navVar}/><ExplorePage isLogin={isLogin} setIsLogin={setIsLogin} user={user} setUser={setUser}/></>} />
-          <Route path="/post-proposal" element={<><Navigator {...navVar}/><PostProposalPage isLogin={isLogin} user={user} /></>} />
+          <Route path="/post-proposal/:id" element={<><Navigator {...navVar}/><PostProposalPage isLogin={isLogin} user={user} /></>} />
           <Route path="/admin" element={<AdminPage isLogPenyelenggara={isLogPenyelenggara} setIsLogPenyelenggara={setIsLogPenyelenggara} penyelenggara={penyelenggara}/>} />
           <Route path="/profil" element={<><Navigator {...navVar}/><UserProfilePage user={user} isLogin={isLogin}/></>} />
         </Routes>
