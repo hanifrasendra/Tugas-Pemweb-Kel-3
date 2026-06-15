@@ -71,8 +71,6 @@ const UserProfilePage = ({ user }) => {
 
   const tabs = [
     { id: "riwayat", label: "Riwayat Proposal", icon: "📋" },
-    { id: "saved", label: "Tersimpan", icon: "💾" },
-    { id: "skill", label: "Skill & Tag", icon: "⚡" },
   ];
 
   const formatNominal = (n) => `Rp ${(n / 1000000).toFixed(0)} Jt`;
@@ -145,13 +143,7 @@ const UserProfilePage = ({ user }) => {
             </svg>
           </button>
           <div className="flex items-center gap-2">
-            <button
-              className="flex items-center gap-2 bg-white/20 backdrop-blur border border-white/30 text-white text-sm font-bold px-4 py-2 rounded-xl font-plex hover:bg-white/30 transition-colors"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7m-1.414-9.414a2 2 0 1 1 2.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </button>
+            
           </div>
         </div>
 
@@ -663,9 +655,9 @@ const UserProfilePage = ({ user }) => {
                         {applicant.status === 'Pending'}
                         <button
                           onClick={() => navigate(`/proposal/${applicant.id}`)}
-                          className="bg-gradient-to-r from-[#993133] to-[#FF312E] text-white text-xs font-bold px-3 py-1.5 rounded-lg font-plex shadow-[0_2px_8px_rgba(255,49,46,0.3)] hover:scale-105 transition-all duration-200 whitespace-nowrap"
+                          className="bg-gradient-to-r from-[#993133] to-[#FF312E] text-white text-xs font-bold px-3 py-1.5 rounded-lg font-plex shadow-[0_2px_8px_rgba(255,49,46,0.3)] hover:scale-105 transition-all duration-200 whitespace-nowrap cursor-pointer"
                         >
-                          Edit →
+                          View →
                         </button>
                       </div>
                     ))}
@@ -676,69 +668,6 @@ const UserProfilePage = ({ user }) => {
                     <p className="text-gray-400 font-plex text-sm">Belum ada proposal yang diajukan.</p>
                   </div>
                 )}
-              </div>
-            )}
-
-            {activeTab === "saved" && (
-              <div className="space-y-3">
-                {user.savedScholarships.map((s) => (
-                  <div
-                    key={s.id}
-                    className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-[0_4px_20px_rgba(255,49,46,0.1)] hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-gray-900 font-plex text-sm leading-tight">{s.title}</p>
-                        <p className="text-xs text-gray-400 font-plex mt-1">{s.provider}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-bold text-[#FF312E] font-plex">{formatNominal(s.nominal)}</p>
-                        <p className="text-[11px] text-amber-500 font-plex font-bold mt-0.5">⏰ {s.deadline}</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mt-3">
-                      <button
-                        onClick={() => navigate("/explore")}
-                        className="flex-1 bg-gradient-to-r from-[#993133] to-[#FF312E] text-white text-xs font-bold py-2.5 rounded-xl font-plex shadow-[0_4px_12px_rgba(255,49,46,0.3)] hover:scale-[1.01] transition-transform"
-                      >
-                        Ajukan Sekarang
-                      </button>
-                      <button className="w-9 h-9 bg-red-50 text-red-400 rounded-xl flex items-center justify-center hover:bg-red-100 transition-colors flex-shrink-0">
-                        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-4 h-4">
-                          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {user.savedScholarships.length === 0 && (
-                  <div className="text-center py-12">
-                    <div className="text-4xl mb-3">💾</div>
-                    <p className="text-gray-400 font-plex text-sm">Belum ada beasiswa tersimpan</p>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {activeTab === "skill" && (
-              <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
-                <h3 className="font-bold text-gray-900 font-plex mb-4 text-sm">Skill & Kategori</h3>
-                <div className="flex flex-wrap gap-2">
-                  {user.tags.map((tag, i) => (
-                    <span
-                      key={tag}
-                      className="flex items-center gap-1.5 bg-gradient-to-r from-[#FF312E]/5 to-[#993133]/5 text-[#993133] text-sm px-4 py-2 rounded-full font-plex font-semibold border border-[#FF312E]/15 hover:from-[#FF312E]/10 hover:to-[#993133]/10 transition-colors cursor-pointer hover:scale-105 transition-transform"
-                      style={{ animationDelay: `${i * 50}ms` }}
-                    >
-                      ⚡ {tag}
-                    </span>
-                  ))}
-                </div>
-                <button
-                  className="mt-5 w-full border-2 border-dashed border-[#FF312E]/20 text-[#FF312E]/70 text-sm font-bold py-3 rounded-2xl font-plex hover:border-[#FF312E]/60 hover:text-[#FF312E] transition-colors"
-                >
-                  + Tambah Skill / Tag
-                </button>
               </div>
             )}
           </div>

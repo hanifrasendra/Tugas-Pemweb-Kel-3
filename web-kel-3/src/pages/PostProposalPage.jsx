@@ -222,7 +222,7 @@ const PostProposalPage = ({ isLogin, user }) => {
 
   // Form state
   const [selectedScholarship, setSelectedScholarship] = useState(scholarship.nama_beasiswa);
-  const [idLembaga, setIdLembaga] = useState(id);
+  const [idLembaga, setIdLembaga] = useState(scholarship.id_lembaga);
   const [namaLembaga, setNamaLembaga] = useState(scholarship.nama_lembaga)
   const [tipeBeasiswa, setTipeBeasiswa] = useState("");
   const [nama] = useState(user?.namalengkap || "");

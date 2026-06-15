@@ -28,7 +28,7 @@ const Hero = () => {
         {/* Tombol ke Catalog */}
         <button
           onClick={() => navigate("/explore")}
-          className="mt-12 bg-brand-red text-surface font-plex font-bold text-[18px] px-12 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:bg-brand-red-dark active:scale-95 [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:px-8 [@media(0px<width<=768px)]:mt-8"
+          className="mt-12 bg-brand-red text-surface font-plex font-bold text-[18px] px-12 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:bg-brand-red-dark active:scale-95 [@media(0px<width<=768px)]:text-[15px] [@media(0px<width<=768px)]:px-8 [@media(0px<width<=768px)]:mt-8 cursor-pointer"
         >
           Eksplor Beasiswa Sekarang
         </button>

@@ -20,7 +20,7 @@ class ProposalsController extends Controller
 
         // Cek dan handle jika di database kamu tidak sengaja tertulis 'deskirpsi' (typo)
         if ($request->has('deskripsi')) {
-            $inputData['deskirpsi'] = $request->input('deskripsi');
+            $inputData['deskripsi'] = $request->input('deskripsi');
         }
 
         // Set status pendaftaran awal
